@@ -19,14 +19,6 @@ defmodule AdventOfCode do
     round(String.length(input) / 2)
   end
 
-  defp _inverse_captcha([]), do: 0
-  defp _inverse_captcha([first, second | tail]) when first == second do
-    first + _inverse_captcha([second | tail])
-  end
-  defp _inverse_captcha([ _ | tail]) do
-    _inverse_captcha(tail)
-  end
-
   defp _inverse_captcha([], []), do: 0
   defp _inverse_captcha([first_head | first_tail], [second_head | second_tail]) when first_head == second_head do
     first_head + second_head + _inverse_captcha(first_tail, second_tail)
