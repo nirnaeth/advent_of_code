@@ -20,8 +20,8 @@ defmodule AdventOfCode do
   end
 
   defp _inverse_captcha([], []), do: 0
-  defp _inverse_captcha([first_head | first_tail], [second_head | second_tail]) when first_head == second_head do
-    first_head + second_head + _inverse_captcha(first_tail, second_tail)
+  defp _inverse_captcha([n | first_tail], [n | second_tail]) do
+    n * 2 + _inverse_captcha(first_tail, second_tail)
   end
   defp _inverse_captcha([ _ | first_tail], [ _ | second_tail]) do
     _inverse_captcha(first_tail, second_tail)
