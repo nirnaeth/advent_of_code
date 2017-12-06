@@ -1,21 +1,27 @@
 defmodule AdventOfCode do
   def steps(""), do: 0
   def steps(input) do
-    instructions = input |> to_list
+    instructions = input |> to_map
 
-    consume(instructions, %{from: 0, jumps: hd(instructions)}, 0)
+    # %{0 => 0, 1 => -1}]
+    consume(instructions, %{from: 0, jumps: instructions[0]}, 0)
   end
 
-  defp to_list(input) do
+  defp to_map(input) do
     input
     |> String.split("\n", trim: true)
-    |> Enum.map(fn x -> String.to_integer(x) end)
+    |> Enum.with_index
+    |> Enum.reduce(%{}, fn(x, acc) ->
+                          acc
+                          |> Map.put(elem(x, 1), String.to_integer(elem(x, 0)))
+                        end
+                  )
   end
 
-  defp consume([], _, acc), do: acc
+  # defp consume(%{}, _, acc), do: acc
   defp consume(instructions, %{from: index, jumps: 0}, acc) do
-    instructions
-    |> List.replace_at(index, Enum.at(instructions, index) + 1)
+    instructions # %{0 => 0, 1 => -1}
+    |> Map.replace(index, instructions[index] + 1)
     |> consume(%{from: index, jumps: 1}, acc + 1)
   end
   defp consume(instructions, step, acc) do
@@ -29,12 +35,18 @@ defmodule AdventOfCode do
     step[:from] + step[:jumps] + 1 > Enum.count(instructions) || step[:from] + step[:jumps] - 1 < 0
   end
 
-  defp _consume(instructions, step, acc) do
-    current_position = step[:from] + step[:jumps]
-    move = instructions |> Enum.at(current_position)
+  defp _consume(instructions, %{from: index, jumps: jumps}, acc) when jumps >= 3 do
+    next = index + jumps
 
     instructions
-    |> List.replace_at(current_position, Enum.at(instructions, current_position) + 1)
-    |> consume(%{from: current_position, jumps: move}, acc + 1)
+    |> Map.replace(index, instructions[index] - 1)
+    |> consume(%{from: next, jumps: instructions[next]}, acc + 1)
+  end
+  defp _consume(instructions, step, acc) do
+    next = step[:from] + step[:jumps]
+
+    instructions
+    |> Map.replace(step[:from], instructions[step[:from]] + 1)
+    |> consume(%{from: next, jumps: instructions[next]}, acc + 1)
   end
 end
