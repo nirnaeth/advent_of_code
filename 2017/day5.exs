@@ -1,4 +1,4 @@
-defmodule AdventOfCode do
+defmodule Day5 do
   def steps(""), do: 0
   def steps(input) do
     instructions = input |> to_map

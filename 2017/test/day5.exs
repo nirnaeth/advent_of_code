@@ -1,13 +1,13 @@
 ExUnit.start
 
-defmodule AdventOfCodeTest do
+defmodule Day5Test do
   use ExUnit.Case
 
   describe "AdventOfCode.steps/1" do
     test "returns the number of steps to consume an instruction completely" do
-      assert AdventOfCode.steps("") == 0
-      assert AdventOfCode.steps("0") == 2
-      assert AdventOfCode.steps("-1") == 1
+      assert Day5.steps("") == 0
+      assert Day5.steps("0") == 2
+      assert Day5.steps("-1") == 1
 
       input =
       """
@@ -17,7 +17,7 @@ defmodule AdventOfCodeTest do
       1
       -3
       """
-      assert AdventOfCode.steps(input) == 10
+      assert Day5.steps(input) == 10
     end
   end
 end

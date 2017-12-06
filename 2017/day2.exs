@@ -1,4 +1,4 @@
-defmodule AdventOfCode do
+defmodule Day2 do
   def checksum(input) do
     input
     |> String.split(["\n"], trim: true)

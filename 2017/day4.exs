@@ -1,4 +1,4 @@
-defmodule AdventOfCode do
+defmodule Day4 do
   def valid_passphrases(input) do
     input
     |> passphrases

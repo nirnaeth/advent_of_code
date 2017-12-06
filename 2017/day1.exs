@@ -1,4 +1,4 @@
-defmodule AdventOfCode do
+defmodule Day1 do
   def inverse_captcha(input) do
     inputs_list = to_lists(input)
 
@@ -26,4 +26,4 @@ defmodule AdventOfCode do
   defp _inverse_captcha([ _ | first_tail], [ _ | second_tail]) do
     _inverse_captcha(first_tail, second_tail)
   end
-end
+  end
