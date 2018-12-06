@@ -21,4 +21,15 @@ defmodule FrequencyAnalyzerTest do
       """
     assert FrequencyAnalyzer.detect(input) == -1
   end
+
+  test "device is calibrated when it encounters the same frequency a second time" do
+    input =
+      """
+      +2
+      -1
+      +1
+      """
+
+      assert FrequencyAnalyzer.calibration_frequency(input) == 2
+  end
 end

@@ -1,10 +1,23 @@
 defmodule FrequencyAnalyzer do
   def detect(input) do
     input
-    |> String.split("\n", trim: true)
-    |> Enum.map(&String.to_integer/1)
+    |> to_integers
     |> Enum.sum
   end
+end
+
+defp to_integers(input)
+  input
+  |> String.split("\n", trim: true)
+  |> Enum.map(&String.to_integer/1)
+end
+
+# recursive function?
+def calibration_frequency(input)
+  input
+  |> to_integers
+  |> Enum.map_reduce(0, fn x, acc -> {acc, x + acc} end)
+  |>
 end
 
 # {:ok, input} = "input/frequency_analyzer_input.txt" |> File.read
