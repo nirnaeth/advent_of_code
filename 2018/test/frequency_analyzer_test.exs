@@ -32,4 +32,18 @@ defmodule FrequencyAnalyzerTest do
 
       assert FrequencyAnalyzer.calibration_frequency(input) == 2
   end
+
+  describe "FrequencyAnalyzer.calibrated?/1" do
+    test "returns true when the input contains a frequency already encountered" do
+      input = [1, 1]
+
+      assert FrequencyAnalyzer.calibrated?(input) == true
+    end
+
+    test "returns false when the input contains a frequency never encountered" do
+      input = [1, 2]
+
+      assert FrequencyAnalyzer.calibrated?(input) == false
+    end
+  end
 end

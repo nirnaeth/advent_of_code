@@ -17,6 +17,14 @@ defmodule FrequencyAnalyzer do
     |> to_integers
     |> Enum.map_reduce(0, fn x, acc -> {acc, x + acc} end)
   end
+
+  def calibrated?([]), do: false
+  def calibrated?([head | tail]) do
+    case Enum.any?(tail, fn(x) -> x == head end) do
+      true -> true
+      false -> calibrated?(tail)
+    end
+  end
 end
 
 # {:ok, input} = "input/frequency_analyzer_input.txt" |> File.read
