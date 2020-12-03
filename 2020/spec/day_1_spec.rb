@@ -1,0 +1,11 @@
+require "./day_1.rb"
+require "input.rb"
+
+RSpec.describe "#add_to_2020" do
+  it "returns two numbers adding to 2020" do
+    path = "#{File.expand_path File.dirname(__FILE__)}/support/input.txt"
+    source = Input.new(path).to_array
+
+    expect(adding_to_2020(source)).to eq [1721, 299]
+  end
+end
