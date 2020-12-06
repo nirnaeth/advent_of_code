@@ -9,3 +9,12 @@ RSpec.describe "#add_to_2020" do
     expect(adding_to_2020(source)).to eq [1721, 299]
   end
 end
+
+RSpec.describe "#add_three_to_2020" do
+  it "returns three numbers adding to 2020" do
+    path = "#{File.expand_path File.dirname(__FILE__)}/support/input.txt"
+    source = Input.new(path).to_array
+
+    expect(add_three_to_2020(source)).to eq [979, 366, 675]
+  end
+end

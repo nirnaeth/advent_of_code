@@ -9,4 +9,13 @@ def adding_to_2020(source)
   source & to_2020
 end
 
-p adding_to_2020(source).reduce(:*)
+def add_three_to_2020(source)
+  source.
+    combination(3).
+    select { |a| a.reduce(:+) == 2020}.
+    pop
+end
+
+# adding_to_2020(source).reduce(:*)
+
+add_three_to_2020(source).reduce(:*)
