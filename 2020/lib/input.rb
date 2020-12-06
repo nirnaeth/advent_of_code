@@ -3,7 +3,7 @@ class Input
     @file = File.new(path, "r")
   end
 
-  def to_array
+  def to_int_array
     file.read.split("\n").map(&:to_i)
   end
 
