@@ -7,6 +7,10 @@ class Input
     file.read.split("\n").map(&:to_i)
   end
 
+  def to_str_array
+    file.read.split("\n")
+  end
+
   private
 
     attr_reader :file
