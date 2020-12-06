@@ -1,4 +1,4 @@
-require "./day_2.rb"
+require "./day_2_part_1.rb"
 require "input.rb"
 
 RSpec.describe "#number_of_valid_passwords" do

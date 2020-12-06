@@ -8,8 +8,6 @@ def number_of_valid_passwords(source)
   valid_passwords(source).count
 end
 
-private
-
 def valid_passwords(source)
   source.select { |item| valid?(item) }
 end
@@ -25,3 +23,5 @@ def separate(item)
 
   return matches["min"].to_i, matches["max"].to_i, matches["char"], matches["password"]
 end
+
+p number_of_valid_passwords(source)
