@@ -1,7 +1,7 @@
 $LOAD_PATH << './lib'
 require "input.rb"
 
-path = "#{File.expand_path File.dirname(__FILE__)}/support/input_day_2.txt"
+path = "support/input_day_2.txt"
 source = Input.new(path).to_str_array
 
 def number_of_valid_passwords(source)
