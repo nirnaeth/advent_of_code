@@ -1,5 +1,6 @@
 class Input
   def initialize(path)
+    path = File.expand_path(File.dirname(__FILE__) + '/../' + path)
     @file = File.new(path, "r")
   end
 
