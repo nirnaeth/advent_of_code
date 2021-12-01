@@ -2,8 +2,7 @@
 
 $LOAD_PATH << './lib'
 require "input.rb"
-
-path = "support/day_1/input.txt"
+path = "support/day_1/input_part_1.txt"
 measures = Input.new(path).to_int_array
 
 def count_depth_increases(measures)
