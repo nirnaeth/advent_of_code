@@ -1,5 +1,4 @@
 require "./day_2_part_2.rb"
-require "input.rb"
 
 RSpec.describe "#number_of_valid_passwords" do
   it "returns all the valid passwords" do

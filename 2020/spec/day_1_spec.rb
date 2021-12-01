@@ -1,5 +1,4 @@
 require "./day_1.rb"
-# require "input.rb"
 
 RSpec.describe "#add_two_to_2020" do
   it "returns two numbers adding to 2020" do
