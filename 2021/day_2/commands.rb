@@ -2,7 +2,7 @@
 
 $LOAD_PATH << './lib'
 require "input"
-require_relative "part_1/submarine.rb"
+require_relative "part_2/submarine.rb"
 
 path = "support/day_2/input.txt"
 list = Input.new(path).to_str_array
