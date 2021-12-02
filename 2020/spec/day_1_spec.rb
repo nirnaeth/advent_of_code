@@ -1,4 +1,4 @@
-require "./day_1.rb"
+require "./day_1"
 
 RSpec.describe "#add_two_to_2020" do
   it "returns two numbers adding to 2020" do
