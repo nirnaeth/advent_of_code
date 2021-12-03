@@ -53,11 +53,52 @@ def find_rates(values)
 end
 
 def power_consumption(values)
-  matrix = to_matrix(values).transpose
-  
-  gamma_rate, epsilon_rate = find_rates(matrix)
+  gamma_rate, epsilon_rate = find_rates(values)
 
   gamma_rate * epsilon_rate
 end
 
-p power_consumption(readings)
+power_consumption(readings)
+
+# life support rating = oxygen generation rating * CO2 scrubber rating
+# For each bit
+# 1. Keep only numbers selected by the bit criteria for the type of rating value for which you are searching. 
+#    Discard numbers which do not match the bit criteria.
+# 2. If you only have one number left, stop; this is the rating value for which you are searching.
+# 3. Otherwise, repeat the process, considering the next bit to the right.
+
+# oxygen generation rating
+# bit criteria: find the most common value in the current bit position (transposed matrix)
+# and keep only numbers with that bit in that position (original matrix). 
+# if 0 and 1 are equally common, keep the 1s
+
+# CO2 scrubber rating
+# bit criteria: find the least common value in the current bit position (transposed matrix)
+# and keep only numbers with that bit in that position (original matrix).
+# if 0 and 1 are equally common, keep the 0s
+
+# def sieve(gas, original)
+#   # original
+#   # [0, 0, 1, 0, 0], 
+#   # [1, 1, 1, 1, 0], 
+#   # [1, 0, 1, 1, 0]
+
+#   # matrix
+#   # [0, 1, 1], 
+#   # [0, 1, 0], 
+#   # [1, 1, 1], 
+#   # [0, 1, 1], 
+#   # [0, 0, 0]
+#   matrix = to_matrix(values).transpose
+
+# end
+
+def most_common_bit(criteria, row)
+  ones = row.count(1)
+  zeroes = row.count(0)
+
+  return 1 if ones == zeroes && criteria == :break_to_one
+  return 0 if ones == zeroes && criteria == :break_to_zero
+
+  ones > zeroes ? 1 : 0
+end
