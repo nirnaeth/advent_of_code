@@ -8,12 +8,11 @@ class Input
     file.read.split("\n").map(&:to_i)
   end
 
-  def to_str_array
-    file.read.split("\n")
+  def to_str_array(separator = "\n")
+    file.read.split(separator)
   end
-  
-private
 
-  attr_reader :file
+  private
+
+    attr_reader :file
 end
-  
