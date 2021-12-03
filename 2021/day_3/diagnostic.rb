@@ -28,17 +28,11 @@ $LOAD_PATH << './lib'
 require "input"
 
 path = "support/day_3/input.txt"
-readings = Input.new(path).to_str_array
+readings = Input.new(path).to_bit_matrix
 
-def to_matrix(values)
-  [].tap do |matrix|
-    values.each do |line|
-      matrix << line.split('').map(&:to_i)
-    end
-  end
-end
+def find_rates(values)
+  matrix = values.transpose
 
-def find_rates(matrix)
   gamma_rate = ""
   epsilon_rate = ""
 

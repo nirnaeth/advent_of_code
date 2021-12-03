@@ -1,4 +1,4 @@
-require "./day_1/sonar.rb"
+require "./day_1/sonar"
 
 RSpec.describe "#count_depth_increases" do
   it "returns all the times the depth increases" do
