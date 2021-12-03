@@ -1,4 +1,4 @@
-require "./day_4/passport"
+require "./day_4/part_2/passport"
 
 RSpec.describe Passport do
   let(:fields) {
