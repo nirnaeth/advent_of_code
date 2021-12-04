@@ -1,3 +1,4 @@
+require "pry"
 # https://adventofcode.com/2021/day/2
 
 # 00100
@@ -77,28 +78,48 @@ power_consumption(readings)
 # and keep only numbers with that bit in that position (original matrix).
 # if 0 and 1 are equally common, keep the 0s
 
-# def sieve(gas, original)
-#   # original
-#   # [0, 0, 1, 0, 0], 
-#   # [1, 1, 1, 1, 0], 
-#   # [1, 0, 1, 1, 0]
-
-#   # matrix
-#   # [0, 1, 1], 
-#   # [0, 1, 0], 
-#   # [1, 1, 1], 
-#   # [0, 1, 1], 
-#   # [0, 0, 0]
-#   matrix = to_matrix(values).transpose
-
-# end
-
-def most_common_bit(criteria, row)
+def most_common_bit(row)
   ones = row.count(1)
   zeroes = row.count(0)
 
-  return 1 if ones == zeroes && criteria == :break_to_one
-  return 0 if ones == zeroes && criteria == :break_to_zero
-
-  ones > zeroes ? 1 : 0
+  ones >= zeroes ? 1 : 0
 end
+
+def least_common_bit(row)
+  1 - most_common_bit(row)
+end
+
+def ratings(gas, report)
+  bits = report.transpose
+
+  [].tap { |filter|
+    # for each row in the transposed matrix, find the most or least common and 
+    # append it to an array that will become the filter for the readings
+    bits.each { |row| filter << (gas == :oxygen ? most_common_bit(row) : least_common_bit(row)) }
+
+    # for each item in the filter in a specific position,
+    # collect only the rows that have at that specific position a value
+    # matching that of the filter 
+    filter.each_with_index do |selector, index|
+      report = report.select { |row| row[index] == selector } # use the new collection to iterate on next 
+      break if report.count == 1
+    end
+  }
+end
+
+# def co2(report)
+#   bits = report.transpose
+
+#   [].tap { |filter|
+#     bits.each { |row| filter << least_common_bit(row) }
+
+#     filter.each_with_index do |selector, index|
+#       report = report.select { |row| row[index] == selector }
+#       return report.pop if report.count == 1
+#     end
+#   }
+# end
+
+p ratings(:oxygen, readings).join.to_i(2)
+p ratings(:co2, readings).join.to_i(2)
+p ratings(:oxygen, readings).join.to_i(2) * ratings(:co2, readings).join.to_i(2)
