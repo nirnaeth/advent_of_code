@@ -27,6 +27,31 @@ RSpec.describe "#ratings" do
   end
 end
 
+RSpec.describe "#oxygen" do
+# oxygen generation rating
+# bit criteria: find the most common value in the current bit position (transposed matrix)
+# and keep only numbers with that bit in that position (original matrix). 
+# if 0 and 1 are equally common, keep the 1s
+  it "returns the number with the same most common bits across all bits" do
+    path = 'spec/support/day_3/input.txt'
+    readings = Input.new(path).to_bit_matrix
+
+    expect(oxygen(readings)).to eq [1, 0, 1, 1, 0]
+  end
+end
+
+RSpec.describe "#co2" do
+# bit criteria: find the least common value in the current bit position (transposed matrix)
+# and keep only numbers with that bit in that position (original matrix).
+# if 0 and 1 are equally common, keep the 0s
+  it "returns the number with the same least common bits across all bits" do
+    path = 'spec/support/day_3/input.txt'
+    readings = Input.new(path).to_bit_matrix
+
+    expect(co2(readings)).to eq [0, 1, 0, 1, 0]
+  end
+end
+
 RSpec.describe "#most_common_bit" do
   context "with uneven bits" do
     it "returns the most common bit in an array" do

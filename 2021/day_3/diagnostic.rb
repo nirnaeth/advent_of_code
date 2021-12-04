@@ -89,6 +89,7 @@ def least_common_bit(row)
   1 - most_common_bit(row)
 end
 
+# SOLUZIONE 1
 def ratings(gas, report)
   bits = report.transpose
 
@@ -107,19 +108,38 @@ def ratings(gas, report)
   }
 end
 
-# def co2(report)
-#   bits = report.transpose
-
-#   [].tap { |filter|
-#     bits.each { |row| filter << least_common_bit(row) }
-
-#     filter.each_with_index do |selector, index|
-#       report = report.select { |row| row[index] == selector }
-#       return report.pop if report.count == 1
-#     end
-#   }
-# end
-
 p ratings(:oxygen, readings).join.to_i(2)
 p ratings(:co2, readings).join.to_i(2)
 p ratings(:oxygen, readings).join.to_i(2) * ratings(:co2, readings).join.to_i(2)
+
+# SOLUZIONE 2
+
+def oxygen(report)
+  bits = report.transpose
+
+  [].tap { |filter|
+    bits.each { |row| filter << most_common_bit(row) }
+
+    filter.each_with_index do |selector, index|
+      report = report.select { |row| row[index] == selector }
+      return report.pop if report.count == 1
+    end
+  }
+end
+
+def co2(report)
+  bits = report.transpose
+
+  [].tap { |filter|
+    bits.each { |row| filter << least_common_bit(row) }
+
+    filter.each_with_index do |selector, index|
+      report = report.select { |row| row[index] == selector }
+      return report.pop if report.count == 1
+    end
+  }
+end
+
+p oxygen(readings).join.to_i(2)
+p co2(readings).join.to_i(2)
+p oxygen(readings).join.to_i(2) * co2(readings).join.to_i(2)
