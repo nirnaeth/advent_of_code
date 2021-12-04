@@ -2,10 +2,9 @@
 
 $LOAD_PATH << './lib'
 require "input"
+require_relative "card"
 
 input_path = File.expand_path(File.dirname(__FILE__) + '/../support/day_4/input.txt')
-
-
 
 def setup(input_path)
   file = File.new(input_path, "r")
@@ -34,15 +33,24 @@ def setup(input_path)
   # [[14, 21, 17, 24, 4], [10, 16, 15, 9, 19], [18, 8, 23, 26, 20], [22, 11, 13, 6, 5], [2, 0, 12, 3, 7]]
   cards = [].tap do |cards|
     elements.each do |element|
-      cards << [].tap do |card|
+      values = [].tap do |card|
         element.split("\n").each do |line|
           # split on whitespaces, remove empty strings
-          card << line.split(/\s/).reject { |item| item.empty? }.map(&:to_i)
+          card << 
+            line
+            .split(/\s/)
+            .reject { |item| item.empty? }
+            .map(&:to_i)
         end
       end
+
+      cards << Card.new(values)
     end
   end
 
   return extraction, cards
 end
 
+# -----------------------------------------------------------------------------------
+
+numbers, cards = setup(input_path)
