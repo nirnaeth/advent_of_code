@@ -114,6 +114,7 @@ p ratings(:oxygen, readings).join.to_i(2) * ratings(:co2, readings).join.to_i(2)
 
 # SOLUZIONE 2
 
+TODO: il filtro va aggiornato a ogni passaggio
 def oxygen(report)
   bits = report.transpose
 
@@ -127,6 +128,7 @@ def oxygen(report)
   }
 end
 
+TODO: il filtro va aggiornato a ogni passaggio
 def co2(report)
   bits = report.transpose
 

@@ -24,7 +24,7 @@ RSpec.describe Input do
     end
 
     it "accepts a custom separator" do
-      path = "spec/support/day_4/input.txt"
+      path = "spec/support/day_4/input_2020.txt"
       source = Input.new(path)
 
       day_input = source.to_str_array("\n\n")
