@@ -92,56 +92,19 @@ end
 # SOLUZIONE 1
 def ratings(gas, report)
   bits = report.transpose
+  
+  bits.size.times do |index|
+    row = bits[index]
+    
+    selector = (gas == :oxygen ? most_common_bit(row) : least_common_bit(row))
 
-  [].tap { |filter|
-    # for each row in the transposed matrix, find the most or least common and 
-    # append it to an array that will become the filter for the readings
-    bits.each { |row| filter << (gas == :oxygen ? most_common_bit(row) : least_common_bit(row)) }
+    report = report.select { |row| row[index] == selector } # use the new collection to iterate on next 
+    bits = report.transpose
 
-    # for each item in the filter in a specific position,
-    # collect only the rows that have at that specific position a value
-    # matching that of the filter 
-    filter.each_with_index do |selector, index|
-      report = report.select { |row| row[index] == selector } # use the new collection to iterate on next 
-      break if report.count == 1
-    end
-  }
+    break if report.count == 1
+  end
+
+  report.pop
 end
 
-p ratings(:oxygen, readings).join.to_i(2)
-p ratings(:co2, readings).join.to_i(2)
-p ratings(:oxygen, readings).join.to_i(2) * ratings(:co2, readings).join.to_i(2)
-
-# SOLUZIONE 2
-
-TODO: il filtro va aggiornato a ogni passaggio
-def oxygen(report)
-  bits = report.transpose
-
-  [].tap { |filter|
-    bits.each { |row| filter << most_common_bit(row) }
-
-    filter.each_with_index do |selector, index|
-      report = report.select { |row| row[index] == selector }
-      return report.pop if report.count == 1
-    end
-  }
-end
-
-TODO: il filtro va aggiornato a ogni passaggio
-def co2(report)
-  bits = report.transpose
-
-  [].tap { |filter|
-    bits.each { |row| filter << least_common_bit(row) }
-
-    filter.each_with_index do |selector, index|
-      report = report.select { |row| row[index] == selector }
-      return report.pop if report.count == 1
-    end
-  }
-end
-
-p oxygen(readings).join.to_i(2)
-p co2(readings).join.to_i(2)
-p oxygen(readings).join.to_i(2) * co2(readings).join.to_i(2)
+ratings(:oxygen, readings).join.to_i(2) * ratings(:co2, readings).join.to_i(2)

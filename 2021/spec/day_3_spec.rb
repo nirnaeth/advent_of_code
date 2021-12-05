@@ -22,7 +22,7 @@ RSpec.describe "#ratings" do
       path = 'spec/support/day_3/input.txt'
       readings = Input.new(path).to_bit_matrix
 
-      expect(ratings(:co2, readings)).to eq [0, 1, 0, 1, 0]
+      expect(ratings(:co2, readings)).to eq [1, 0, 1, 1, 1]
     end
   end
 end
