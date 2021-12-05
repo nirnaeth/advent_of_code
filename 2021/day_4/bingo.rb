@@ -67,4 +67,6 @@ def play(numbers, cards)
   end  
 end
 
-# p play(numbers, cards)
+number, card = play(numbers, cards)
+
+p number * card.sum

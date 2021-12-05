@@ -8,7 +8,7 @@ RSpec.describe '#setup' do
     
     expect(numbers).to eq expected.first
     expect(cards.size).to eq 3
-    expect(cards[0].values).to match_array expected.last[0].values
+    expect(cards[0].rows).to match_array expected.last[0].rows
   end
 end
 
@@ -50,12 +50,12 @@ RSpec.describe '#play' do
     _, winner = play(numbers, cards)
     
     expect(winner.bingo?).to be true
-    expect(winner.values).to eq [
-      [],
-      [10, 16, 15, 19],
-      [18, 8, 26, 20],
-      [22, 13, 6],
-      [12, 3]
+    expect(winner.rows).to eq [
+      [-1, -1, -1, -1, -1],
+      [10, 16, 15, -1, 19],
+      [18, 8, -1, 26, 20],
+      [22, -1, 13, 6, -1],
+      [-1, -1, 12, 3, -1]
     ]
   end
 
