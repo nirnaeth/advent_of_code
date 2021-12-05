@@ -21,11 +21,10 @@ def read_coordinates(pair)
   return start, finish
 end
 
-def lines_from_coordinates(input_path, no_diagonals = true)
+def lines_from_coordinates(input_path)
   file = File.new(input_path, 'r')
 
   pairs = file.read.split("\n")
-
   [].tap do |lines|
     pairs.each do |pair|
       start, finish = read_coordinates(pair)
@@ -39,9 +38,6 @@ def lines_from_coordinates(input_path, no_diagonals = true)
       positive = proc(&:positive?)
       horizontal_distance = start.first - finish.first
       vertical_distance = start.last - finish.last
-
-      # TODO: exclude diagonal pairs
-      next if (horizontal_distance != 0 || vertical_distance != 0) && no_diagonals
 
       xs = case horizontal_distance
       when negative
@@ -89,22 +85,44 @@ def lines_from_coordinates(input_path, no_diagonals = true)
   end
 end
 
-def fill_diagram(lines)
-  cardinality = lines.size
-  diagram = [].tap { |diagram| cardinality.times { |n| diagram << Array.new(cardinality, 0)} }
+def fill_diagram(lines, no_diagonals = true)
+  max_x = 0
+  max_y = 0
+  
+  lines.each do |points|
+    max_x = points.first.first if points.first.first > max_x
+    max_x = points.last.first if points.last.first > max_x
+    max_y = points.first.last if points.first.last > max_y
+    max_y = points.last.last if points.last.last > max_y
+  end
+  max_x += 1
+  max_y += 1
+
+  diagram = [].tap { |diagram| max_x.times { |n| diagram << Array.new(max_y, 0)} }
 
   lines.each do |points|
+    is_vertical = points.first.first == points.last.first
+    is_horizontal = points.first.last == points.last.last
+
     points.each do |point|
-      # diagram[point.first][point.last] += 1
+      diagram[point.last][point.first] += 1 if (is_vertical || is_horizontal) && no_diagonals 
     end
   end
 
-  pp diagram
+  diagram
 end
 
 lines = lines_from_coordinates(input_path)
 
-fill_diagram(lines)
+diagram = fill_diagram(lines)
+
+0.tap do |sum| 
+  diagram.each do |lines|
+    sum += lines.count { |element| element > 1 }
+  end
+
+  p sum
+end
 # -----------------------------------------------------------------------------------
 
 # create diagram (array)
