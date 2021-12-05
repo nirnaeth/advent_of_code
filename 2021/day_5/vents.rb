@@ -8,26 +8,40 @@ require 'pry'
 input_path = File.expand_path(File.dirname(__FILE__) + '/../support/day_5/input.txt')
 
 # read coordinates
+# each pair is in the form of x1, y1 -> x2, y2
+# we transform each pair in a pair of coordinates
+# pair: 0,9 -> 5,9 
+# start: [0, 9]
+# finish: [5, 9]
+def read_coordinates(pair)
+  start, finish = pair.split('->').map(&:strip)
+  start = start.split(',').map(&:to_i)
+  finish = finish.split(',').map(&:to_i)
 
-def lines_from_coordinates(input_path)
+  return start, finish
+end
+
+def lines_from_coordinates(input_path, no_diagonals = true)
   file = File.new(input_path, 'r')
 
   pairs = file.read.split("\n")
 
-  # each line is in the form of x1, y1 -> x2, y2
-  # we transform each pair in a line like
-  # pair: 0,9 -> 5,9 
-  # line: [[0, 9], [1, 9], [2, 9], [3, 9], [4, 9], [5, 9]]
   [].tap do |lines|
     pairs.each do |pair|
-      start, finish = pair.split('->').map(&:strip)
-      start = start.split(',').map(&:to_i)
-      finish = finish.split(',').map(&:to_i)
-      
+      start, finish = read_coordinates(pair)
+
+      # we transform each pair in a line like
+      # start: [0, 9]
+      # finish: [5,9]
+      # line: [[0, 9], [1, 9], [2, 9], [3, 9], [4, 9], [5, 9]]
+
       negative = proc(&:negative?)
       positive = proc(&:positive?)
       horizontal_distance = start.first - finish.first
       vertical_distance = start.last - finish.last
+
+      # TODO: exclude diagonal pairs
+      next if (horizontal_distance != 0 || vertical_distance != 0) && no_diagonals
 
       xs = case horizontal_distance
       when negative
@@ -73,43 +87,24 @@ def lines_from_coordinates(input_path)
       lines << xs.zip(ys)
     end
   end
-  # extraction = elements.shift.split(',').map(&:to_i)
-
-  # # here we build the cards. each element corresponds to a card.
-  # # a card is a series of contiguous lines separated by \n.
-  # # a card will be represented as an array of arrays.
-  # # 
-  # # how the original input looks like
-  # # cards
-  # # "22 13 17 11  0\n 8  2 23  4 24\n21  9 14 16  7\n 6 10  3 18  5\n 1 12 20 15 19"
-  # # " 3 15  0  2 22\n 9 18 13 17  5\n19  8  7 25 23\n20 11 10 24  4\n14 21 16 12  6"
-  # # "14 21 17 24  4\n10 16 15  9 19\n18  8 23 26 20\n22 11 13  6  5\n 2  0 12  3  7"
-  # #
-  # # how it looks after cleaning
-  # # [[22, 13, 17, 11, 0], [8, 2, 23, 4, 24], [21, 9, 14, 16, 7], [6, 10, 3, 18, 5], [1, 12, 20, 15, 19]]
-  # # [[3, 15, 0, 2, 22], [9, 18, 13, 17, 5], [19, 8, 7, 25, 23], [20, 11, 10, 24, 4], [14, 21, 16, 12, 6]]
-  # # [[14, 21, 17, 24, 4], [10, 16, 15, 9, 19], [18, 8, 23, 26, 20], [22, 11, 13, 6, 5], [2, 0, 12, 3, 7]]
-  # cards = [].tap do |cards|
-  #   elements.each do |element|
-  #     values = [].tap do |card|
-  #       element.split("\n").each do |line|
-  #         # split on whitespaces, remove empty strings
-  #         card << 
-  #           line
-  #           .split(/\s/)
-  #           .reject { |item| item.empty? }
-  #           .map(&:to_i)
-  #       end
-  #     end
-
-  #     cards << Card.new(values)
-  #   end
-  # end
-
-  # return extraction, cards
 end
 
-lines_from_coordinates(input_path)
+def fill_diagram(lines)
+  cardinality = lines.size
+  diagram = [].tap { |diagram| cardinality.times { |n| diagram << Array.new(cardinality, 0)} }
+
+  lines.each do |points|
+    points.each do |point|
+      # diagram[point.first][point.last] += 1
+    end
+  end
+
+  pp diagram
+end
+
+lines = lines_from_coordinates(input_path)
+
+fill_diagram(lines)
 # -----------------------------------------------------------------------------------
 
 # create diagram (array)
