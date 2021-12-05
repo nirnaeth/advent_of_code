@@ -95,16 +95,18 @@ def fill_diagram(lines, no_diagonals = true)
     max_y = points.first.last if points.first.last > max_y
     max_y = points.last.last if points.last.last > max_y
   end
-  max_x += 1
+  max_x += 2
   max_y += 1
 
   diagram = [].tap { |diagram| max_x.times { |n| diagram << Array.new(max_y, 0)} }
+
 
   lines.each do |points|
     is_vertical = points.first.first == points.last.first
     is_horizontal = points.first.last == points.last.last
 
     points.each do |point|
+      p point
       diagram[point.last][point.first] += 1 if (is_vertical || is_horizontal) && no_diagonals 
     end
   end
@@ -120,8 +122,6 @@ diagram = fill_diagram(lines)
   diagram.each do |lines|
     sum += lines.count { |element| element > 1 }
   end
-
-  p sum
 end
 # -----------------------------------------------------------------------------------
 
