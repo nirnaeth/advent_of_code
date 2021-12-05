@@ -85,52 +85,62 @@ def lines_from_coordinates(input_path)
   end
 end
 
-def fill_diagram(lines, no_diagonals = true)
-  max_x = 0
-  max_y = 0
+def calculate_max(lines)
+  max = 0
   
   lines.each do |points|
-    max_x = points.first.first if points.first.first > max_x
-    max_x = points.last.first if points.last.first > max_x
-    max_y = points.first.last if points.first.last > max_y
-    max_y = points.last.last if points.last.last > max_y
+    local_max = points.first.first > points.last.first ? points.first.first : points.last.first
+    
+    max = local_max if local_max > max
   end
-  max_x += 2
-  max_y += 1
 
-  diagram = [].tap { |diagram| max_x.times { |n| diagram << Array.new(max_y, 0)} }
+  # for the love of me I have no idea why the offset is +2 for x
+  max += 2
+end
 
+def fill_diagram(lines, no_diagonals = true)
+  max = calculate_max(lines)
+
+  # set everything up with zeros
+  diagram = [].tap { |diagram| max.times { |n| diagram << Array.new(max, 0)} }
 
   lines.each do |points|
     is_vertical = points.first.first == points.last.first
     is_horizontal = points.first.last == points.last.last
 
     points.each do |point|
-      p point
-      diagram[point.last][point.first] += 1 if (is_vertical || is_horizontal) && no_diagonals 
+      case no_diagonals
+      when true
+        diagram[point.last][point.first] += 1 if (is_vertical || is_horizontal)
+      when false
+        diagram[point.last][point.first] += 1
+      end
     end
   end
 
   diagram
 end
 
-lines = lines_from_coordinates(input_path)
+def overlapping_lines(diagram)
+  0.tap do |sum| 
+    diagram.each do |lines|
+      sum += lines.count { |element| element > 1 }
+    end
 
-diagram = fill_diagram(lines)
-
-0.tap do |sum| 
-  diagram.each do |lines|
-    sum += lines.count { |element| element > 1 }
+    p sum
   end
 end
+
+lines = lines_from_coordinates(input_path)
 # -----------------------------------------------------------------------------------
+# part 1
+# -----------------------------------------------------------------------------------
+diagram = fill_diagram(lines)
 
-# create diagram (array)
-#   . if no lines cover that coordinate
-#   1 if 1 line covers that coordinate
-#   2 if 2 lines cover that coordinate
-#   ...
+overlapping_lines(diagram)
+# -----------------------------------------------------------------------------------
+# part 2
+# -----------------------------------------------------------------------------------
+diagram = fill_diagram(lines, false)
 
-# find points where 2+ lines cover the coordinate
-
-
+overlapping_lines(diagram)
