@@ -1,13 +1,14 @@
 # https://adventofcode.com/2021/day/4
 
 $LOAD_PATH << './lib'
-require "input"
-require_relative "card"
+require 'input'
+require 'pry'
+require_relative 'card'
 
 input_path = File.expand_path(File.dirname(__FILE__) + '/../support/day_4/input.txt')
 
 def setup(input_path)
-  file = File.new(input_path, "r")
+  file = File.new(input_path, 'r')
 
   elements = file.read.split("\n\n")
 
@@ -15,7 +16,7 @@ def setup(input_path)
   # it has a slightly different format compared to the other elements that follow, 
   # because numbers are separated by commas.
   # so we remove it to allow for easier process of the other elements
-  extraction = elements.shift.split(",").map(&:to_i)
+  extraction = elements.shift.split(',').map(&:to_i)
 
   # here we build the cards. each element corresponds to a card.
   # a card is a series of contiguous lines separated by \n.
@@ -54,3 +55,16 @@ end
 # -----------------------------------------------------------------------------------
 
 numbers, cards = setup(input_path)
+
+def play(numbers, cards)
+  numbers.each do |number|
+    cards.each do |card| 
+      card.mark(number)
+    end
+
+    winner = cards.select { |card| card.bingo? }
+    return number, winner.pop unless winner.empty?
+  end  
+end
+
+# p play(numbers, cards)

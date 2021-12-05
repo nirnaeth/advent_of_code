@@ -1,14 +1,14 @@
-require "./day_4/bingo"
+require './day_4/bingo'
 
-RSpec.describe "#setup" do
-  it "returns an array for the extraction and an array for the cards" do
+RSpec.describe '#setup' do
+  it 'returns an array for the extraction and an array for the cards' do
     input_path = File.expand_path(File.dirname(__FILE__) + '/../spec/support/day_4/input.txt')
 
-    result = setup(input_path)
+    numbers, cards = setup(input_path)
     
-    expect(result.first).to eq expected.first
-    expect(result.last.size).to eq 3
-    expect(result.last[0].values).to match_array expected.last[0].values
+    expect(numbers).to eq expected.first
+    expect(cards.size).to eq 3
+    expect(cards[0].values).to match_array expected.last[0].values
   end
 end
 
@@ -39,4 +39,33 @@ def expected
       ])
     ]
   ]
+end
+
+RSpec.describe '#play' do
+  it 'returns the winning card' do
+    input_path = File.expand_path(File.dirname(__FILE__) + '/../spec/support/day_4/input.txt')
+
+    numbers, cards = setup(input_path)
+
+    _, winner = play(numbers, cards)
+    
+    expect(winner.bingo?).to be true
+    expect(winner.values).to eq [
+      [],
+      [10, 16, 15, 19],
+      [18, 8, 26, 20],
+      [22, 13, 6],
+      [12, 3]
+    ]
+  end
+
+  it 'returns the winning number' do
+    input_path = File.expand_path(File.dirname(__FILE__) + '/../spec/support/day_4/input.txt')
+
+    numbers, cards = setup(input_path)
+
+    winner, _ = play(numbers, cards)
+    
+    expect(winner).to eq 24
+  end
 end
