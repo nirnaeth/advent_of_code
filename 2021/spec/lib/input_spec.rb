@@ -11,6 +11,15 @@ RSpec.describe Input do
 
       expect(day_input).to eq [199, 200, 208, 210, 200, 207, 240, 269, 260, 263]
     end
+
+    it "accepts a custom separator" do
+      path = "spec/support/day_6/input.txt"
+      source = Input.new(path)
+
+      day_input = source.to_int_array(',')
+
+      expect(day_input).to eq [3, 4, 3, 1, 2]
+    end
   end
 
   describe "#to_str_array" do

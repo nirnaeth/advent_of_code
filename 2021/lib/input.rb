@@ -4,8 +4,8 @@ class Input
     @file = File.new(path, "r")
   end
 
-  def to_int_array
-    file.read.split("\n").map(&:to_i)
+  def to_int_array(separator = "\n")
+    file.read.split(separator).map(&:to_i)
   end
 
   def to_str_array(separator = "\n")
