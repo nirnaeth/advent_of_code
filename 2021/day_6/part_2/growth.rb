@@ -15,8 +15,7 @@ path = 'support/day_6/input.txt'
 fishes = Input.new(path).to_int_array(',')
 SPAWN_DAY = 0
 RESET_DAY = 6
-NEW_FISH = 9
-# DAYS = 80
+DAYS = 256
 
 def setup(fishes)
   [].tap do |ledger|
@@ -29,18 +28,25 @@ end
 def grow(ledger, days)
   # binding.pry 
   days.times do |day|
+    # how many fishes have reached maturity and will spawn?
+    new_spawns = ledger[0]
+
     ledger.rotate!
+
+    if new_spawns > 0 
+      ledger[ledger.size - 1] = new_spawns 
+      ledger[RESET_DAY] += new_spawns
+    end
   end
 
-  # binding.pry 
   ledger
 end
 
 start_ledger = setup(fishes)
 # starting = Process.clock_gettime(Process::CLOCK_MONOTONIC)
-# grow(fishes, days)
+ledger = grow(start_ledger, DAYS)
 
-# p fishes.count
+p ledger.sum
 # ending = Process.clock_gettime(Process::CLOCK_MONOTONIC)
 # elapsed = ending - starting
 # p elapsed * 60

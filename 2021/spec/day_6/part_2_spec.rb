@@ -18,25 +18,35 @@ RSpec.describe '#grow' do
 
     generation = grow(ledger, days)
 
-    expect(generation).to eq [1,1,2,1,0,0,0,0,0]
+    expect(generation).to eq [1, 1, 2, 1, 0, 0, 0, 0, 0]
   end
 
   it 'spanws a new fish (8) when a fish is ready' do
-    fishes = [0]
+    ledger = [1, 0, 0, 0, 0, 0, 0, 0, 0]
     days = 1
 
-    generation = grow(fishes, days)
+    generation = grow(ledger, days)
 
-    expect(generation).to eq [6,8]
+    expect(generation).to eq [0, 0, 0, 0, 0, 0, 1, 0, 1]
   end
 
   it 'resets a fish (6) after 7 days' do
-    fishes = [6]
+    ledger = [0, 0, 0, 0, 0, 0, 1, 0, 0]
     days = 7
 
-    generation = grow(fishes, days)
+    generation = grow(ledger, days)
 
-    expect(generation).to eq [6,8]
+    expect(generation).to eq [0, 0, 0, 0, 0, 0, 1, 0, 1]
+  end
+
+  it 'returns a ledger with the correct amount of fishes' do
+    ledger = [0, 1, 1, 2, 1, 0, 0, 0, 0]
+    days = 18
+
+    generation = grow(ledger, days)
+
+    expect(generation).to eq [3, 5, 3, 2, 2, 1, 5, 1, 4]
+    expect(generation.sum).to eq 26
   end
 end
 
