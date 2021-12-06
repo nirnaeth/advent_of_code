@@ -1,4 +1,4 @@
-require './day_6/growth'
+require './day_6/part_1/growth'
 require 'pry'
 
 RSpec.describe '#grow' do

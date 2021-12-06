@@ -16,7 +16,7 @@ fishes = Input.new(path).to_int_array(',')
 SPAWN_DAY = 0
 RESET_DAY = 6
 NEW_FISH = 9
-days = 5
+DAYS = 80
 
 def grow(fishes, days)
   # binding.pry 
@@ -35,4 +35,10 @@ def grow(fishes, days)
   fishes
 end
 
+starting = Process.clock_gettime(Process::CLOCK_MONOTONIC)
 grow(fishes, days)
+
+p fishes.count
+ending = Process.clock_gettime(Process::CLOCK_MONOTONIC)
+elapsed = ending - starting
+p elapsed * 60
