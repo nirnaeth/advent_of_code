@@ -1,7 +1,7 @@
 $LOAD_PATH << './lib'
 require "input"
 require "pry"
-require "./day_4/passport"
+require "./day_4/part_2/passport"
 
 path = "support/input_day_4.txt"
 source = Input.new(path).to_str_array("\n\n")
