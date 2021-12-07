@@ -7,6 +7,31 @@ require 'pry'
 path = 'support/day_7/input.txt'
 crabs = Input.new(path).to_int_array(',')
 
+# solution found here https://www.reddit.com/r/adventofcode/comments/rar7ty/2021_day_7_solutions/hnmydnl/
+# for y in range(min(crabs),max(crabs)):
+#   cost1 = min(cost1,sum([abs(x-y) for x in crabs]))
+#   cost2 = min(cost2,sum([(abs(x-y)*(abs(x-y)+1)//2) for x in crabs]))
+
+cost_1 = Float::INFINITY
+cost_2 = Float::INFINITY
+
+(crabs.min..crabs.max).each do |y|
+  sum_1 = 0
+  crabs.each do |x|
+    sum_1 += (x - y).abs
+  end
+
+  sum_2 = 0
+  crabs.each do |x|
+    sum_2 += ((x - y).abs * ((x - y).abs + 1) / 2)
+  end
+
+  cost_1 = [cost_1, sum_1].min
+  cost_2 = [cost_2, sum_2].min
+end
+
+p cost_1
+p cost_2
 # -------------- BRUTE FORCE #1
 # def find_distances(crabs)
 #   max_distance = crabs.max + 1
