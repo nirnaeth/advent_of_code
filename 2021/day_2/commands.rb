@@ -1,10 +1,10 @@
 # https://adventofcode.com/2021/day/2
 
 $LOAD_PATH << './lib'
-require "input"
-require_relative "part_2/submarine.rb"
+require 'input'
+require_relative 'part_2/submarine'
 
-path = "support/day_2/input.txt"
+path = 'support/day_2/input.txt'
 list = Input.new(path).to_str_array
 
 submarine = Submarine.new
