@@ -12,6 +12,8 @@ crabs = Input.new(path).to_int_array(',')
 #   cost1 = min(cost1,sum([abs(x-y) for x in crabs]))
 #   cost2 = min(cost2,sum([(abs(x-y)*(abs(x-y)+1)//2) for x in crabs]))
 
+# similar # https://www.reddit.com/r/adventofcode/comments/rar7ty/2021_day_7_solutions/
+
 cost_1 = Float::INFINITY
 cost_2 = Float::INFINITY
 
