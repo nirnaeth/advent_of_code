@@ -1,12 +1,29 @@
-require './day_8/display'
+require './day_8/digit'
 require 'pry'
 
-RSpec.describe '#read_input' do
-  it 'separates signals and outputs' do
-    path = 'spec/support/day_8/input.txt'
-    values = read_input(path)
+RSpec.describe Digit do
+  it 'returns 1 when the input is two characters' do
+    digit = Digit.new('ab')
 
-    expect(values).to eq expected
+    expect(digit.number).to eq 1
+  end
+
+  it 'returns 4 when the input is four characters' do
+    digit = Digit.new('abcd')
+
+    expect(digit.number).to eq 4
+  end
+
+  it 'returns 7 when the input is three digits' do
+    digit = Digit.new('abc')
+
+    expect(digit.number).to eq 7
+  end
+
+  it 'returns 8 when the input is seven digits' do
+    digit = Digit.new('abcdefg')
+
+    expect(digit.number).to eq 8
   end
 end
 
