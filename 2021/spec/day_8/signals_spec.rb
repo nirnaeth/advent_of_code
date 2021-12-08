@@ -10,6 +10,17 @@ RSpec.describe '#read_input' do
   end
 end
 
+RSpec.describe '#decode' do
+  it 'decodes an input line' do
+    input = {
+      signals: ['egadfb', 'cdbfeg', 'cegd', 'fecab', 'cgb', 'gbdefca', 'cg', 'fgcdab', 'egfdb', 'bfceg'], 
+      output: ['gbdfcae', 'bgc', 'cg', 'cgb']
+    }
+
+    expect(decode(input)).to eq 8717
+  end
+end
+
 # Within an entry, the same wire/segment connections are used (but you don't know what the connections actually are)
 # The unique signal patterns correspond to the ten different ways the submarine tries to render a digit using the 
 # current wire/segment connections. 

@@ -1,20 +1,17 @@
 class Display
-  def initialize(signal)
-    @signal = signal
-  end
-
-  # defaults
-  # 0: abcefg
-  # 1: cf
-  # 2: acdeg
-  # 3: acdfg
-  # 4: bcdf
-  # 5: abdfg
-  # 6: abdefg
-  # 7: acf
-  # 8: abcdefg
-  # 9: abcdfg
-    
+  # the index of the array stands for the number displayed
+  DEFAULT = [
+    'abcefg',
+    'cf',
+    'acdeg',
+    'bcdf',
+    'abdfg',
+    'abdefg',
+    'acf',
+    'abcdefg',
+    'abcdfg'
+  ]
+      
   #   aaaa    ....    aaaa    aaaa    ....
   #  b    c  .    c  .    c  .    c  b    c
   #  b    c  .    c  .    c  .    c  b    c
@@ -30,6 +27,11 @@ class Display
   #  .    f  e    f  .    f  e    f  .    f
   #  .    f  e    f  .    f  e    f  .    f
   #   gggg    gggg    ....    gggg    gggg
+
+  def initialize(signal)
+    @signal = signal
+  end
+
   def number
     case signal.size
     when 2
@@ -44,10 +46,33 @@ class Display
   end
 
   def wires
-    signal.chars
+    signal.chars.sort
+  end
+
+  # brings the display to its original wire configuration
+  def match_wires
+    case wires.size
+    when 2
+      {
+        wires.first => DEFAULT[1].first,
+        wires.last => DEFAULT[1].last
+      }
+    when 3
+      decode_wires_for(7)
+    when 4
+      decode_wires_for(4)
+    when 7
+      decode_wires_for(8)
+    end
   end
 
   private
 
   attr_reader :signal
+
+  def decode_wires_for(number)
+    {}.tap do |decoded|
+      wires.each_with_index { |wire, index| decoded[wires[index]] = DEFAULT[number][index] }
+    end
+  end
 end

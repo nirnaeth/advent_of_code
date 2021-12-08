@@ -19,14 +19,14 @@ def read_input(path)
   end
 end
 
-# position = blast_position(crabs)
+# input
+# {
+#  signals: ['egadfb', 'cdbfeg', 'cegd', 'fecab', 'cgb', 'gbdefca', 'cg', 'fgcdab', 'egfdb', 'bfceg'], 
+#  output: ['gbdfcae', 'bgc', 'cg', 'cgb']
+#}
+def decode(input)
+  p input[:signals].sort { |a, b| a.size <=> b.size }
+end
 
-# def calculate_fuel(crabs, position)
-#   [].tap do |distances|
-#     crabs.each do |crab|
-#       distances << (crab - position).abs
-#     end
-#   end.sum
-# end
+input = read_input(path)
 
-# p calculate_fuel(crabs, position)
