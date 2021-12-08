@@ -44,7 +44,7 @@ class Display
   end
 
   def wires
-    signal.split
+    signal.chars
   end
 
   private
