@@ -25,7 +25,19 @@ end
 #  output: ['gbdfcae', 'bgc', 'cg', 'cgb']
 #}
 def decode(input)
-  p input[:signals].sort { |a, b| a.size <=> b.size }
+  eight = input[:signals].select { |item| item.size == 7 }.pop
+  dictionary = Display.new(eight).match_wires
+
+  # binding.pry
+  decoded_displays = []
+  input[:output].each do |value|
+    corrected_value = []
+    value.chars.each { |c| corrected_value << dictionary[c] }
+    decoded_displays << Display.new(corrected_value.sort.join).number
+  end
+  
+  decoded_displays.join.to_i
+
 end
 
 input = read_input(path)

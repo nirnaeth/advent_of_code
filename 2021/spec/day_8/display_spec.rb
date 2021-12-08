@@ -47,8 +47,8 @@ RSpec.describe Display do
       display = Display.new('ecg')
 
       expect(display.match_wires).to eq ({
-        'c' => 'a',
-        'e' => 'b',
+        'c' => 'b',
+        'e' => 'a',
         'g' => 'c'
       })
     end

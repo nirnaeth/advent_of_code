@@ -4,6 +4,7 @@ class Display
     'abcefg',
     'cf',
     'acdeg',
+    'acdfg',
     'bcdf',
     'abdfg',
     'abdefg',
@@ -46,6 +47,10 @@ class Display
   end
 
   def wires
+    signal.chars
+  end
+
+  def ordered_wires
     signal.chars.sort
   end
 
@@ -72,6 +77,7 @@ class Display
 
   def decode_wires_for(number)
     {}.tap do |decoded|
+      # binding.pry
       wires.each_with_index { |wire, index| decoded[wires[index]] = DEFAULT[number][index] }
     end
   end
