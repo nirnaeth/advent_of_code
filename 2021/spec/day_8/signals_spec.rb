@@ -17,7 +17,18 @@ RSpec.describe '#decode' do
       output: ['gbdfcae', 'bgc', 'cg', 'cgb']
     }
 
-    expect(decode(input)).to eq 8717
+    expect(decode(input)).to eq [8, 7, 1, 7]
+  end
+end
+
+RSpec.describe '#count_unique_numbers' do
+  it 'returns the number of unique occurences of the simple numbers' do
+    input = [{
+      signals: ['egadfb', 'cdbfeg', 'cegd', 'fecab', 'cgb', 'gbdefca', 'cg', 'fgcdab', 'egfdb', 'bfceg'], 
+      output: ['gbdfcae', 'bgc', 'cg', 'cgb']
+    }]
+
+    expect(count_unique_numbers(input)).to eq 4
   end
 end
 

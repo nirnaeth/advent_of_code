@@ -28,7 +28,6 @@ def decode(input)
   eight = input[:signals].select { |item| item.size == 7 }.pop
   dictionary = Display.new(eight).match_wires
 
-  # binding.pry
   decoded_displays = []
   input[:output].each do |value|
     corrected_value = []
@@ -36,9 +35,19 @@ def decode(input)
     decoded_displays << Display.new(corrected_value.sort.join).number
   end
   
-  decoded_displays.join.to_i
-
+  decoded_displays
 end
 
-input = read_input(path)
+def count_unique_numbers(input)
+  occurrences = 0
+  
+  input.each do |value|
+    number = decode(value)
+    occurrences += number.count { |element| [1, 4, 7, 8].include? element }
+  end
 
+  occurrences
+end
+
+# input = read_input(path)
+# p count_unique_numbers(input)

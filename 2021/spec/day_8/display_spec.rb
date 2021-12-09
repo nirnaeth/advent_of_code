@@ -34,11 +34,19 @@ RSpec.describe Display do
 
       expect(display.wires).to eq ['a', 'b', 'c']
     end
+  end
+
+  describe '#ordered_wires' do
+    it 'returns the wires that are lighiting the display' do
+      display = Display.new('abc')
+
+      expect(display.ordered_wires).to eq ['a', 'b', 'c']
+    end
 
     it 'sorts the wire in alphabetical order' do
       display = Display.new('bac')
 
-      expect(display.wires).to eq ['a', 'b', 'c']
+      expect(display.ordered_wires).to eq ['a', 'b', 'c']
     end
   end
 
@@ -47,9 +55,9 @@ RSpec.describe Display do
       display = Display.new('ecg')
 
       expect(display.match_wires).to eq ({
-        'c' => 'b',
+        'c' => 'c',
         'e' => 'a',
-        'g' => 'c'
+        'g' => 'f'
       })
     end
   end

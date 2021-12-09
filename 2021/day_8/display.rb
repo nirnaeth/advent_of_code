@@ -77,7 +77,6 @@ class Display
 
   def decode_wires_for(number)
     {}.tap do |decoded|
-      # binding.pry
       wires.each_with_index { |wire, index| decoded[wires[index]] = DEFAULT[number][index] }
     end
   end
