@@ -33,11 +33,11 @@ class Display
     @signal = signal
   end
 
-  # def number(display)
-  #   decoded_wires = decode_wires
-  #   corrected = decoded_wires[display]
-  #   DEFAULT.index(corrected)
-  # end
+  def number(display)
+    decoded_wires = decode_wires
+    corrected = decoded_wires[display]
+    DEFAULT.index(corrected)
+  end
 
   def wires
     signal.chars
@@ -47,25 +47,33 @@ class Display
     signal.chars.sort
   end
 
-#  brings the display to its original wire configuration
-  def decode_wires
-    
-  end
-
+  # brings the display to its original wire configuration
   # def decode_wires
-
-  #   @decoded_wires ||= {}.tap do |matched|
+  #   @decoded_wires ||= [].tap do |matched|
   #     DEFAULT.each do |default|
   #       {}.tap do |decoded|
   #         wires.each_with_index do |wire, index| 
-  #           # binding.pry
   #           decoded[wire] = default[index] unless default[index].nil?
   #         end
-  #         matched[default] = decoded.keys.join
+  #         matched << decoded
   #       end
   #     end
   #   end
   # end
+
+  def decode_wires
+    @decoded_wires ||= {}.tap do |matched|
+      DEFAULT.each do |default|
+        {}.tap do |decoded|
+          wires.each_with_index do |wire, index| 
+            binding.pry
+            decoded[wire] = default[index] unless default[index].nil?
+          end
+          matched[default] = decoded.keys.join
+        end
+      end
+    end
+  end
 
 
   private

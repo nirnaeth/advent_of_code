@@ -10,14 +10,6 @@ RSpec.describe '#read_input' do
   end
 end
 
-RSpec.describe '#find_uniques' do
-  it 'finds the unique numbers (1, 4, 7, 8)' do
-    signals = ['egadfb', 'cdbfeg', 'cegd', 'fecab', 'cgb', 'gbdefca', 'cg', 'fgcdab', 'egfdb', 'bfceg']
-
-    expect(find_uniques(signals)).to eq ([nil, "cg", nil, nil, "cegd", nil, nil, "cgb", "gbdefca", nil])
-  end
-end
-
 RSpec.describe '#decode' do
   it 'decodes an input line' do
     input = {
