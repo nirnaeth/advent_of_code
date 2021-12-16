@@ -11,7 +11,7 @@ Coordinate = Struct.new(:x, :y)
 # ----- part 1
 def neighbours_values(coordinates, map)
   neighbours = []
-
+  
   neighbours << map[coordinates.y][coordinates.x - 1] if coordinates.x > 0 # right
   neighbours << map[coordinates.y + 1][coordinates.x] if coordinates.y + 1 < map.size # down
   neighbours << map[coordinates.y][coordinates.x + 1] if coordinates.x + 1 < map.first.size # left
@@ -22,9 +22,9 @@ end
 
 def low_points_values(map)
   [].tap do |result|
-    map.each_with_index do |row, i|
-      row.each_with_index do |element, j|
-        result << element if element < neighbours_values(Coordinate.new(j, i), map).min
+    map.each_with_index do |row, y|
+      row.each_with_index do |element, x|
+        result << element if element < neighbours_values(Coordinate.new(x, y), map).min
       end
     end
   end
@@ -34,9 +34,9 @@ def risk(points)
   points.inject(0) { |sum, n| sum + (n + 1) } 
 end
 
-points = low_points_values(heightmap)
+# points = low_points_values(heightmap)
 
-risk(points)
+# risk(points)
 
 # ----- part 2
 
@@ -50,15 +50,15 @@ risk(points)
 # each point is represented by the coordinates as key y:x or row:column and the height as the value
 def low_points(map)
   {}.tap do |result|
-    map.each_with_index do |row, i|
-      row.each_with_index do |element, j|
-        result["#{i}:#{j}"] = element if element < neighbours_values(Coordinate.new(j, i), map).min
+    map.each_with_index do |row, y|
+      row.each_with_index do |element, x|
+        result["#{y}:#{x}"] = element if element < neighbours_values(Coordinate.new(x, y), map).min
       end
     end
   end
 end
 
-low_points = low_points(heightmap)
+points = low_points(heightmap)
 
 def neighbours(coordinates, map)
   neighbours = {}
@@ -86,20 +86,37 @@ end
 #   7. Continue looping until Q is exhausted.
 #   8. Return.
 
-# stack = {}
+def basins(points, heightmap)
+  sizes = {}
+  stack = {}
 
-# low_points.each do |point|
-#   stack.merge point
-  
-#   while stack.any? do
-#     n = stack.pop
+  points.each do |coords, height|
+    # binding.pry if coords == "10:75"
 
-#     if n.value != 9 # n is "inside"
-#       stack[n.value] = 9
-#       y = n.key.split(':').first
-#       x = n.key.split(':').last
-#       stack.merge neighbours(Coordinate.new(y, x), heightmap)
-#     end
-#   end
-# end
+    size = 0
+    stack.merge!({coords => height})
+    
+    while stack.any? do # while Q is not empty
+      key, value = stack.shift # n is the first element of Q
 
+      if value != 9 # n is "inside"
+        y = key.split(':').first.to_i
+        x = key.split(':').last.to_i
+
+        size += 1
+        heightmap[y][x] = 9 # set n
+
+        next_locations = neighbours(Coordinate.new(x, y), heightmap) # add the next nodes
+        stack.merge!(next_locations)
+      end
+    end
+
+    sizes.merge!({size => coords})
+  end
+
+  sizes
+end
+
+records = basins(points, heightmap)
+
+p records.keys.sort.pop(3).inject(:*)
