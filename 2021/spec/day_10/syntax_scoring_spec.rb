@@ -21,7 +21,7 @@ end
 
 RSpec.describe '#calculate_score' do
   it 'calculates the syntax error score for the corrupted lines' do
-    expect(calculate_score(corrupted_lines)).to eq 26397
+    expect(calculate_corruption_score(corrupted_lines)).to eq 26397
   end
 end
 

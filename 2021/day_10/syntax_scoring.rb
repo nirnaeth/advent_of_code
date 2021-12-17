@@ -43,7 +43,7 @@ def check(lines)
   return corrupted, incomplete
 end
 
-def calculate_score(corrupted_lines)
+def calculate_corruption_score(corrupted_lines)
   score = 0
 
   corrupted_lines.each do |_, v|
@@ -62,5 +62,5 @@ def calculate_score(corrupted_lines)
   score
 end
 
-# corrupted_lines = check(lines)
-# p calculate_score(corrupted_lines)
+# corrupted_lines, incomplete_lines = check(lines)
+# p calculate_score(calculate_corruption_score)
