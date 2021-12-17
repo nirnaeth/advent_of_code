@@ -19,9 +19,22 @@ RSpec.describe '#check' do
   end
 end
 
-RSpec.describe '#calculate_score' do
+RSpec.describe '#calculate_corruption_score' do
   it 'calculates the syntax error score for the corrupted lines' do
     expect(calculate_corruption_score(corrupted_lines)).to eq 26397
+  end
+end
+
+RSpec.describe '#calculate_line_score' do
+  it 'calculates the autocomplete score for an incomplete line' do
+    line = ['<', '{', '(', '['].reverse
+    expect(calculate_line_score(line)).to eq 294
+  end
+end
+
+RSpec.describe '#calculate_incomplete_score' do
+  it 'calculates the autocomplete score for the incomplete lines' do
+    expect(calculate_incomplete_score(incomplete_lines)).to eq 288957
   end
 end
 
@@ -36,11 +49,11 @@ def corrupted_lines
 end
 
 def incomplete_lines
-  [
-    "[({(<(())[]>[[{[]{<()<>>", 
-    "[(()[<>])]({[<{<<[]>>(", 
-    "(((({<>}<{<{<>}{[]{[]{}", 
-    "{<[[]]>}<{[{[{[]{()[[[]", 
-    "<{([{{}}[<[[[<>{}]]]>[]]"
-  ]
+  {
+    '(((({<>}<{<{<>}{[]{[]{}'  => ['(', '(', '(', '(', '<', '{', '<', '{', '{'],
+    '<{([{{}}[<[[[<>{}]]]>[]]' => ['<', '{', '(', '['],
+    '[(()[<>])]({[<{<<[]>>('   => ['(', '{', '[', '<', '{', '('],
+    '[({(<(())[]>[[{[]{<()<>>' => ['[', '(', '{', '(', '[', '[', '{', '{'],
+    '{<[[]]>}<{[{[{[]{()[[[]'  => ['<', '{', '[', '{', '[', '{', '{', '[', '[']
+  }
 end

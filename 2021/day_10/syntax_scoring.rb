@@ -16,7 +16,7 @@ CHUNKS = {
 
 def check(lines)
   corrupted = {}
-  incomplete = []
+  incomplete = {}
 
   lines.each do |line|
     signals = line.split('')
@@ -37,7 +37,7 @@ def check(lines)
       end
     end
 
-    incomplete << line unless corrupted.include? line
+    incomplete.merge!(line => pushed) unless corrupted.include? line
   end
 
   return corrupted, incomplete
@@ -62,5 +62,40 @@ def calculate_corruption_score(corrupted_lines)
   score
 end
 
-# corrupted_lines, incomplete_lines = check(lines)
-# p calculate_score(calculate_corruption_score)
+def calculate_line_score(line)
+  total = 0
+
+  line.each do |v|
+    total *= 5
+    
+    case v
+    when '('
+      total += 1
+    when '['
+      total += 2
+    when '{'
+      total += 3
+    when '<'
+      total += 4
+    end
+  end
+
+  total
+end
+
+def calculate_incomplete_score(incomplete_lines)
+  scores = []
+  
+  incomplete_lines.each do |_, line|
+    scores << calculate_line_score(line.reverse)
+  end
+
+  scores = scores.sort
+  middle = (scores.size / 2)
+  scores[middle]  
+end
+
+corrupted_lines, incomplete_lines = check(lines)
+p calculate_corruption_score(corrupted_lines)
+
+p calculate_incomplete_score(incomplete_lines)
