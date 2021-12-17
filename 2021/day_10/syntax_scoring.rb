@@ -15,28 +15,32 @@ CHUNKS = {
 }
 
 def check(lines)
-  {}.tap do |corrupted|
-    lines.each do |line|
-      signals = line.split('')
-      pushed = []
-      
-      signals.each do |signal|
-        # binding.pry
+  corrupted = {}
+  incomplete = []
 
-        if CHUNKS.keys.include? signal 
-          pushed << signal 
+  lines.each do |line|
+    signals = line.split('')
+    pushed = []
+    
+    signals.each do |signal|
+      # binding.pry
+      if CHUNKS.keys.include? signal 
+        pushed << signal 
+      else
+        if signal != CHUNKS[pushed.last] # mark the line as corrupted
+          # p "signal #{signal} - last pushed match #{CHUNKS[pushed.last]}"
+          corrupted.merge!(line => signal)
+          break
         else
-          if signal != CHUNKS[pushed.last] # mark the line as corrupted
-            # p "signal #{signal} - last pushed match #{CHUNKS[pushed.last]}"
-            corrupted.merge!(line => signal)
-            break
-          else
-            pushed.pop
-          end
+          pushed.pop
         end
       end
     end
+
+    incomplete << line unless corrupted.include? line
   end
+
+  return corrupted, incomplete
 end
 
 def calculate_score(corrupted_lines)
@@ -58,5 +62,5 @@ def calculate_score(corrupted_lines)
   score
 end
 
-corrupted_lines = check(lines)
-p calculate_score(corrupted_lines)
+# corrupted_lines = check(lines)
+# p calculate_score(corrupted_lines)

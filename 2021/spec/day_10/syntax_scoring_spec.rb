@@ -6,7 +6,16 @@ RSpec.describe '#check' do
     path = 'spec/support/day_10/input.txt'
     lines = Input.new(path).to_str_array
     
-    expect(check(lines)).to eq corrupted_lines
+    result, _ = check(lines)
+    expect(result).to eq corrupted_lines
+  end
+
+  it 'finds the incomplete lines' do
+    path = 'spec/support/day_10/input.txt'
+    lines = Input.new(path).to_str_array
+    
+    _, result = check(lines)
+    expect(result).to eq incomplete_lines
   end
 end
 
@@ -24,4 +33,14 @@ def corrupted_lines
     '[<(<(<(<{}))><([]([]()'   => ')', 
     '<{([([[(<>()){}]>(<<{{'   => '>'
   }
+end
+
+def incomplete_lines
+  [
+    "[({(<(())[]>[[{[]{<()<>>", 
+    "[(()[<>])]({[<{<<[]>>(", 
+    "(((({<>}<{<{<>}{[]{[]{}", 
+    "{<[[]]>}<{[{[{[]{()[[[]", 
+    "<{([{{}}[<[[[<>{}]]]>[]]"
+  ]
 end
