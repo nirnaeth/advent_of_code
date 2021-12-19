@@ -45,3 +45,72 @@ end
   # 1710 is not the right answer (second method)
 
 # how many flashes?
+
+#---
+# itxt = open("input", mode='r').read().strip().splitlines()
+
+# octopi = {(i,j): int(v) for i, r in enumerate(itxt) for j, v in enumerate(r)}
+# last = {'r': max([r for (r,c) in octopi.keys()]), 'c': max([c for (r,c) in octopi.keys()])}
+
+# flashes = 0
+
+# def getns(r: int, c:int) -> set:
+#     return [i for i in [(r-1,c),(r+1,c),(r,c-1),(r,c+1),(r-1,c-1),(r+1,c+1),(r+1,c-1),(r-1,c+1)] \
+#         if i[0] >= 0 and i[0] <= last['r'] and i[1] >= 0 and i[1] <= last['c']]
+
+# for s in range(100):
+#     flashed = set()
+
+#     #increment all
+#     octopi = {i: int(v+1) for i, v in octopi.items()}
+
+#     while len(flash := {(r,c) for ((r,c),v) in octopi.items() if (r,c) not in flashed and v >= 10}) > 0:
+
+#         flashed.update(flash)
+
+#         flashns = [neighbours(r,c) for (r,c) in flash]
+
+#         for i in flashns:
+#             for (r,c) in i:
+#                 octopi.update({(r,c): octopi.get((r,c))+1})
+
+#     for ((r,c),v) in octopi.items():
+#         if v > 9:
+#             octopi.update({(r,c):0})
+#             flashes += 1
+
+# print(flashes)
+
+#---
+flashes = 0
+
+100.times do 
+  flashed = {}
+
+  coordinates.transform_values! { |energy| energy += 1 }
+
+  flashing = coordinates.select { |coords, energy| energy > 9 && !flashed.keys.include?(coords) }
+
+  flashing.each do |coords, energy|
+    flashed.merge!({coords => energy})
+    
+    # neighbours
+    x = coords.split(':').first.to_i
+    y = coords.split(':').last.to_i
+    energizing = neighbours(x, y, coordinates)
+
+    energizing.each do |coords, energy|
+      coordinates[coords] = coordinates[coords] += 1
+    end
+    # 
+  end
+
+  coordinates.each do |coords, energy|
+    if energy > 9
+      coordinates[coords] = 0
+      flashes += 1
+    end
+  end
+end
+
+p flashes

@@ -48,48 +48,12 @@ RSpec.describe '#neighbours' do
   end
 end
 
-RSpec.describe '#step' do
-  context 'when there are no octopi ready to flash' do
-    it 'increases energy levels by 1' do
-      octopi = {
-        '0:0' => 3,
-        '0:1' => 4,
-        '0:2' => 3,
-        '0:3' => 1,
-        '0:4' => 2
-      }
-
-      expect(count_flashes(octopi)).to eq (
-        {
-          '0:0' => 4,
-          '0:1' => 5,
-          '0:2' => 4,
-          '0:3' => 2,
-          '0:4' => 3
-        }
-      )
-    end
-  end
-end
-
 RSpec.describe '#count_flashes' do
-  it 'counts the number of octopi that flash in a step when there are no flashing neighbours' do
-    octopi = {
-      '0:0' => 1, '0:1' => 1, '0:2' => 1, '0:3' => 1, '0:4' => 1,
-      '1:0' => 1, '1:1' => 9, '1:2' => 9, '1:3' => 9, '1:4' => 1,
-      '2:0' => 1, '2:1' => 9, '2:2' => 9, '2:3' => 9, '2:4' => 1,
-      '3:0' => 1, '3:1' => 9, '3:2' => 9, '3:3' => 9, '3:4' => 1,
-      '4:0' => 1, '4:1' => 1, '4:2' => 1, '4:3' => 1, '4:4' => 1
-    }
-
-    expect(count_flashes(octopi, 2)).to eq 9
-  end
-
-  it 'counts the number of octopi that flash in a step when there are flashing neighbours' do
+  it 'returns the number of octopi that flash' do
     path = 'spec/support/day_11/input.txt'
     octopi = Input.new(path).to_coordinates
 
-    expect(count_flashes(octopi, 10)).to eq 2
+    expect(count_flashes(octopi, 2)).to eq 35
   end
 end
 
