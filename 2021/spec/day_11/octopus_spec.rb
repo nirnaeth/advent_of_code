@@ -1,7 +1,6 @@
 require './day_11/octopus'
 require 'pry'
 
-
 RSpec.describe '#neighbours' do
   it 'finds the neighbours of the specified octopus' do
     x = 2
