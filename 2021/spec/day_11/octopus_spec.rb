@@ -173,7 +173,7 @@ RSpec.describe '#count_flashes' do
     path = 'spec/support/day_11/input.txt'
     octopi = Input.new(path).to_coordinates
 
-    expect(count_flashes(octopi, 2)).to eq 35
+    expect(count_flashes(octopi, 10)).to eq 2
   end
 end
 
