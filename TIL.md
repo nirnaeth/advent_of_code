@@ -3,6 +3,10 @@
 ## What I learned (or recalled) thanks to [Advent of Code](adventofcode.com/)
 
 ### 2021
+**Day 12**
+TIL about
+* [BFS & DFS](https://medium.com/tebs-lab/breadth-first-search-and-depth-first-search-4310f3bf8416)
+* [RSpec 3 composable matchers](https://rspec.info/blog/2014/01/new-in-rspec-3-composable-matchers/)
 
 **Day 10**
 TIL about 

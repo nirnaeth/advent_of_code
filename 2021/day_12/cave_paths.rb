@@ -18,7 +18,7 @@ map = Input.new(path).to_str_array
 
 # p connections
 
-# def list_paths(map)
+# def list_neighbours(map)
 #   {}.tap do |paths|
 #     map.each do |connection|
 #       pair = connection.split('-')
@@ -26,7 +26,7 @@ map = Input.new(path).to_str_array
 #       all = pair.zip(pair.reverse)
     
 #       all.each do |from, to|
-#         unless to == 'start' #|| from == 'end'
+#         unless to == 'start' || from == 'end'
 #           paths[from].nil? ? paths[from] = [to] : paths[from] << to 
 #         end
 #       end
@@ -34,33 +34,89 @@ map = Input.new(path).to_str_array
 #   end
 # end
 
-def list_caves_paths(map)
+# paths = list_paths(map)
+
+def list_neighbours(map)
   {}.tap do |neighbours|
     map.each do |line|
-      from, to = line.split('-')
+      caves = line.split('-')
     
-      neighbours[from].nil? ? neighbours[from] = [to] : neighbours[from] << to
+      caves.each do |cave| # check both ways, from and to
+        next_cave = (caves - [cave]).pop # identify other cave compared to the current one
+
+        # - if we are at end, we are at the border of the graph, so no need to find neighbours
+        # - going to the start is an illegal move
+        if cave != 'end' && next_cave != 'start'
+          if neighbours[cave].nil? # never visited this cave, initialize new array element
+            neighbours[cave] = [next_cave]
+          else
+            neighbours[cave] << next_cave
+          end
+        end
+      end
     end
   end
 end
 
-# paths = list_caves_paths(map)
+# paths = list_neighbours(map)
 
-# def part1(paths, visited)
-#   final = 0
+# p paths
 
-#   paths[visited.last].each do |cave|
-#     # binding.pry
-#     if cave.upcase == cave || !visited.include?(cave)
-#       if cave == 'end'
-#         final += 1  
-#       else 
-#         part1(paths, visited << cave)
-#       end
-#     end
-#   end
+def valid_complete_paths(neighbours, visited)
+  count = 0 
+p "visited #{visited}"
+p "neighbours #{neighbours}"
 
-#   final
-# end
+p "neighbours last #{visited.last}"
+p "neighbours last #{neighbours[visited.last]}"
+  frontier_caves = neighbours[visited.last]
+  
+  frontier_caves.each do |cave|    
+    if cave.upcase == cave || !visited.include?(cave)
+      p "cannot progress"
+      p "cave #{cave}"
+      # binding.pry
+      if cave == 'end'
+        count += 1
+      else
+        p "can progress"
+        p "cave #{cave}"
+        valid_complete_paths(neighbours, visited << cave)
+      end
+    end
+  end
 
-#   p part1(paths, ['start'])
+  count
+end
+
+
+for a,b in maps:
+    graph[a].add(b)
+    graph[b].add(a)
+
+def traverse(path=['start']):
+    if path[-1] == 'end': return 1
+    newnodes = [node for node in graph[path[-1]] if node not in path or node.upper()==node]
+    if len(newnodes)==0: return 0
+    return sum([traverse(path=path+[node]) for node in newnodes])
+
+# p valid_complete_paths(paths, ['start'])
+
+# # def part1(paths, visited)
+# #   final = 0
+
+# #   paths[visited.last].each do |cave|
+# #     # binding.pry
+# #     if cave.upcase == cave || !visited.include?(cave)
+# #       if cave == 'end'
+# #         final += 1  
+# #       else 
+# #         part1(paths, visited << cave)
+# #       end
+# #     end
+# #   end
+
+# #   final
+# # end
+
+# #   p part1(paths, ['start'])
