@@ -16,6 +16,16 @@ rounds = Input.new(path).to_str_array
 ## X - 1            0 - Loss
 ## Y - 2            3 - Draw
 ## Z - 3            6 - Win
+def my_hand(round)
+  case round.split(" ").last
+  in "X" # Rock
+    1
+  in "Y" # Paper
+    2
+  in "Z" # Scissor
+    3
+  end
+end
 
 def pool(rounds)
   wins   = []
@@ -40,16 +50,20 @@ def pool(rounds)
   }
 end
 
-def my_hand(round)
-  case round.split(" ").last
-  in "X"
-    1
-  in "Y"
-    2
-  in "Z"
-    3
-  end
+## Scoring
+## Selected Shape + Round Outcome 
+## X - 1            0 - Loss
+## Y - 2            3 - Draw
+## Z - 3            6 - Win
+
+def score(rounds)
+  pools = pool(rounds)
+
+  losses_score = pools[:losses].count * 0 + pools[:losses].sum
+  draws_score = pools[:draws].count * 3 + pools[:draws].sum
+  wins_score = pools[:wins].count * 6 + pools[:wins].sum
+
+  losses_score + draws_score + wins_score
 end
 
-# def score(rounds)
-# end
+p score(rounds)

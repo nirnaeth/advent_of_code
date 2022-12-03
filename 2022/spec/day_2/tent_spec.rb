@@ -25,7 +25,7 @@ RSpec.describe "#pool" do
 end
 
 RSpec.describe "#score" do
-  xit "returns the final score from the strategy guide" do
+  it "returns the final score from the strategy guide" do
     path = "spec/data/day_2/input.txt"
     test_data = Input.new(path).to_str_array
 
