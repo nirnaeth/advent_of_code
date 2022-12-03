@@ -5,18 +5,20 @@ require "input.rb"
 path = "data/day_1/input.txt"
 stashes = Input.new(path).to_str_array("\n\n")
 
-def max_calories(stashes)
-  stashes.map { |stash| stash.split("\n").map(&:to_i).sum }.max
+def max(stashes)
+  stashes
+    .map { |stash| stash.split("\n").map(&:to_i).sum }
+    .max
 end
 
-# p max_calories(stashes)
+# p max(stashes)
 
-# def count_depth_increases_in_triples(measures)
-#   []
-#     .tap { |a| measures.each_cons(3) { |triple| a << triple.sum } }
-#     .each_cons(2)
-#     .select { |pair| pair.first < pair.last }
-#     .count
-# end
+def top_three(stashes)
+  stashes
+    .map { |stash| stash.split("\n").map(&:to_i).sum }
+    .sort_by { |calories| -calories }
+    .take(3)
+    .sum
+end
 
-# p count_depth_increases_in_triples(measures)
+# p top_three(stashes)

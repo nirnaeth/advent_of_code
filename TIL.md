@@ -2,7 +2,19 @@
 
 ## What I learned (or recalled) thanks to [Advent of Code](adventofcode.com/)
 
+### 2022
+Language: Ruby
+
+**Day 1**
+TIL about
+* [Sorting arrays in reverse order](https://www.rubyguides.com/2017/07/ruby-sort/)
+```ruby
+.sort_by { |calories| -calories }
+```
+
 ### 2021
+Language: Ruby
+
 **Day 12**
 TIL about
 * [BFS & DFS](https://medium.com/tebs-lab/breadth-first-search-and-depth-first-search-4310f3bf8416)
