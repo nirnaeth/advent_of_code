@@ -1,5 +1,5 @@
 require "pry"
-require "./day_2/tent.rb"
+require "./day_2/part_1/tent.rb"
 
 RSpec.describe "#my_hand" do
   it "selects the value in the round matching my hand" do
