@@ -35,6 +35,10 @@ def to_range(instructions)
   Range.new(instructions.first.to_i, instructions.last.to_i)
 end
 
+def full_overlap?(first, second)
+  first.cover?(second) || second.cover?(first)
+end
+
 def overlaps(sections)
   [].tap do |a|
     sections.each do |section| 
@@ -44,3 +48,5 @@ def overlaps(sections)
   end
   .count
 end
+
+p overlaps(sections)
