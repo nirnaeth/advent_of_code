@@ -45,17 +45,26 @@ def partial_overlap?(first, second)
 end
 
 def overlaps(sections, full: true)
-  [].tap do |a|
-    sections.each do |section| 
-      first, second = assignment(section)
-      if full
-        a << [first, second] if full_overlap?(first, second)
-      else
-        a << [first, second] if partial_overlap?(first, second)
-      end  
-    end
+  sections.inject(0) do |sum, section| 
+    first, second = assignment(section)
+
+    sum += 1 if (full && full_overlap?(first, second)) || (!full && partial_overlap?(first, second))
+       
+    sum
   end
-  .count
+
+  ## First solution
+  # [].tap do |a|
+  #   sections.each do |section| 
+      
+  #     if full
+  #       a << [first, second] if full_overlap?(first, second)
+  #     else
+  #       a << [first, second] if partial_overlap?(first, second)
+  #     end  
+  #   end
+  # end
+  # .count
 end
 
 p overlaps(sections)
