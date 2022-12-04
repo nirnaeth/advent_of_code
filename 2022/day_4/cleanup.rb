@@ -28,7 +28,7 @@ sections = Input.new(path).to_str_array
 def assignment(section)
   first_elf, second_elf = section.split(",")
 
-  return to_range(first_elf.chars), to_range(second_elf.chars)
+  return to_range(first_elf.split("-")), to_range(second_elf.split("-"))
 end
 
 def to_range(instructions)
@@ -36,14 +36,14 @@ def to_range(instructions)
 end
 
 def full_overlap?(first, second)
-  first.cover?(second) || second.cover?(first)
+  response = first.cover?(second) || second.cover?(first)
 end
 
 def overlaps(sections)
   [].tap do |a|
     sections.each do |section| 
       first, second = assignment(section)
-      a << [first, second] if first.cover?(second) || second.cover?(first)
+      a << [first, second] if full_overlap?(first, second)
     end
   end
   .count
