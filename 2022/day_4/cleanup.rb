@@ -4,7 +4,7 @@ $LOAD_PATH << './lib'
 require "input.rb"
 path = "data/day_4/input.txt"
 
-overla = Input.new(path).to_str_array
+sections = Input.new(path).to_str_array
 
 ## VISUAL
 # .234.....  2-4
@@ -24,6 +24,15 @@ overla = Input.new(path).to_str_array
 
 # .23456...  2-6
 # ...45678.  4-8
+
+def assignment(section)
+  first_elf, second_elf = section.split(",")
+  return to_range(first_elf.chars), to_range(second_elf.chars)
+end
+
+def to_range(instructions)
+  Range.new(instructions.first.to_i, instructions.last.to_i)
+end
 
 def overlap(sections)
 end

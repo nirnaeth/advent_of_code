@@ -1,11 +1,11 @@
 require "pry"
 require "./day_4/cleanup.rb"
 
-RSpec.describe "#compartments" do
-  xit "divides the content in the two compartments" do
-    test_data = "vJrwpWtwJgWrhcsFMMfFFhFp"
+RSpec.describe "#assignment" do
+  it "provides the assignment for a pair of elves" do
+    test_data = "2-4,6-8"
 
-    expect(compartments_diff(test_data)).to eq "p"
+    expect(assignment(test_data)).to eq [2..4, 6..8]
   end
 end
 
