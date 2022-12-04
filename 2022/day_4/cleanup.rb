@@ -1,4 +1,5 @@
 # https://adventofcode.com/2022/day/4
+require 'set'
 
 $LOAD_PATH << './lib'
 require "input.rb"
@@ -36,17 +37,26 @@ def to_range(instructions)
 end
 
 def full_overlap?(first, second)
-  response = first.cover?(second) || second.cover?(first)
+  first.cover?(second) || second.cover?(first)
 end
 
-def overlaps(sections)
+def partial_overlap?(first, second)
+  first.to_set.intersect? second.to_set
+end
+
+def overlaps(sections, full: true)
   [].tap do |a|
     sections.each do |section| 
       first, second = assignment(section)
-      a << [first, second] if full_overlap?(first, second)
+      if full
+        a << [first, second] if full_overlap?(first, second)
+      else
+        a << [first, second] if partial_overlap?(first, second)
+      end  
     end
   end
   .count
 end
 
 p overlaps(sections)
+p overlaps(sections, full: false)
