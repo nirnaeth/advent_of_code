@@ -17,11 +17,11 @@ RSpec.describe "#assignment" do
   end
 end
 
-RSpec.describe "#badge_priority" do
-  xit "returns the sum of the priorities for all the duplicate items" do
-    path = "spec/data/day_3/input.txt"
+RSpec.describe "#overlaps" do
+  it "counts how many assignments are overlapping" do
+    path = "spec/data/day_4/input.txt"
     test_data = Input.new(path).to_str_array
 
-    expect(badge_priority(test_data)).to eq 70
+    expect(overlaps(test_data)).to eq 2
   end
 end
