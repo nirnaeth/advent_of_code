@@ -3,7 +3,6 @@ require "./day_2/part_1/tent.rb"
 
 RSpec.describe "#my_hand" do
   it "selects the value in the round matching my hand" do
-    path = "spec/data/day_2/input.txt"
     test_data = "A X"
 
     expect(my_hand(test_data)).to eq 1

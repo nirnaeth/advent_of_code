@@ -2,51 +2,51 @@
 require 'input.rb'
 
 RSpec.describe Input do
-  # describe '#to_int_array' do
-  #   it 'reads from disk into an array of integers' do
-  #     path = 'spec/support/day_1/input.txt'
-  #     source = Input.new(path)
+  describe '#to_int_array' do
+    it 'reads from disk into an array of integers' do
+      path = 'spec/lib/data/int_array.txt'
+      source = Input.new(path)
 
-  #     day_input = source.to_int_array
+      day_input = source.to_int_array
 
-  #     expect(day_input).to eq [199, 200, 208, 210, 200, 207, 240, 269, 260, 263]
-  #   end
+      expect(day_input).to eq [199, 200, 208, 210, 200, 207, 240, 269, 260, 263]
+    end
 
-    # it 'accepts a custom separator' do
-    #   path = 'spec/support/day_6/input.txt'
-    #   source = Input.new(path)
+    it 'accepts a custom separator' do
+      path = 'spec/lib/data/int_array_custom_separator.txt'
+      source = Input.new(path)
 
-    #   day_input = source.to_int_array(',')
+      day_input = source.to_int_array(',')
 
-    #   expect(day_input).to eq [3, 4, 3, 1, 2]
-    # end
+      expect(day_input).to eq [3, 4, 3, 1, 2]
+    end
   end
 
-#   describe '#to_str_array' do
-#     it 'reads the file and converts it in an array of strings' do
-#       path = 'spec/support/day_2/input.txt'
-#       source = Input.new(path)
+  describe '#to_str_array' do
+    it 'reads the file and converts it in an array of strings' do
+      path = 'spec/lib/data/str_array.txt'
+      source = Input.new(path)
 
-#       day_input = source.to_str_array
+      day_input = source.to_str_array
 
-#       expect(day_input).to eq ['forward 5', 'down 5', 'forward 8', 'up 3', 'down 8', 'forward 2']
-#     end
+      expect(day_input).to eq ['forward 5', 'down 5', 'forward 8', 'up 3', 'down 8', 'forward 2']
+    end
 
-#     it 'accepts a custom separator' do
-#       path = 'spec/support/day_4/input_2020.txt'
-#       source = Input.new(path)
+    it 'accepts a custom separator' do
+      path = 'spec/lib/data/str_array_custom_separator.txt'
+      source = Input.new(path)
 
-#       day_input = source.to_str_array("\n\n")
+      day_input = source.to_str_array("\n\n")
 
-#       expect(day_input.first).to eq 'ecl:gry pid:860033327 eyr:2020 hcl:#fffffd\nbyr:1937 iyr:2017 cid:147 hgt:183cm'
-#       expect(day_input.count).to eq 4
-#       expect(day_input).to be_an Array
-#     end
-#   end
+      expect(day_input.first).to eq "ecl:gry pid:860033327 eyr:2020 hcl:#fffffd\nbyr:1937 iyr:2017 cid:147 hgt:183cm"
+      expect(day_input.count).to eq 4
+      expect(day_input).to be_an Array
+    end
+  end
 
 #   describe '#to_bit_matrix' do
 #     it 'reads the file and converts it in a matrix of bits' do
-#       path = 'spec/support/day_3/input.txt'
+#       path = 'spec/lib/data/bit_matrix.txt'
 #       source = Input.new(path)
 
 #       day_input = source.to_bit_matrix
@@ -70,7 +70,7 @@ RSpec.describe Input do
 
 #   describe '#to_coordinates' do
 #     it 'reads the file and converts it to an hashe for coordinates/value pairs' do
-#       path = 'spec/support/day_11/input.txt'
+#       path = 'spec/lib/data/coordinates.txt'
 #       source = Input.new(path)
 
 #       day_input = source.to_coordinates
@@ -78,7 +78,7 @@ RSpec.describe Input do
 #       expect(day_input).to eq coordinates_hash
 #     end
 #   end
-# end
+end
 
 # def coordinates_hash
 #   {
