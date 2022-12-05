@@ -48,10 +48,12 @@ def moves(sequence)
   end
 end
 
-def move(arrangement, instruction) 
+def move(arrangement, instruction, crane_model: 9000) 
   size = instruction[:moves]
 
+  ## For solving part 2, remove the reverse
   crates = arrangement[instruction[:from]].pop(size).reverse
+  
   arrangement[instruction[:to]] = arrangement[instruction[:to]] + crates
   
   arrangement
