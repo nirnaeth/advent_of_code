@@ -29,3 +29,10 @@ TIL about
 TIL about
 * [Geometric median](https://en.wikipedia.org/wiki/Geometric_median) as minimizing distances
 * [sum of the first n numbers](https://iq.opengenus.org/sum-of-first-n-numbers/)
+
+### 2020
+Language: Ruby
+
+**Day 5**
+TIL about
+* [BSP - Binary Sace Partitioning](https://en.wikipedia.org/wiki/Binary_space_partitioning) [Tutorial](https://www.cs.cmu.edu/afs/andrew/scs/cs/15-463/2001/pub/www/notes/bsp_tutorial.pdf)
