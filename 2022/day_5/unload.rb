@@ -7,7 +7,7 @@ $LOAD_PATH << './lib'
 require "input.rb"
 path = "data/day_5/input.txt"
 
-arrangement, sequence = Input.new(path).to_str_array("\n\n")
+drawing, sequence = Input.new(path).to_str_array("\n\n")
 
 #     [D]    
 # [N] [C]    
@@ -19,6 +19,26 @@ arrangement, sequence = Input.new(path).to_str_array("\n\n")
 # move 2 from 2 to 1
 # move 1 from 1 to 2
 
+def arrangement(drawing)
+  rows = drawing.split("\n").map(&:chars)
+
+  columns = rows.pop
+  rows.reverse!
+  
+  [].tap do |a|
+    columns.each_with_index do |item, index|
+      next unless item =~ /[1-9]+/
+
+      a[item.to_i] = [].tap do |b|
+        rows.each do |row| 
+          next unless row[index] =~ /[A-Z]+/
+          b << row[index] 
+        end
+      end
+    end
+  end
+end
+
 def moves(sequence)
   [].tap do |a|
     sequence.split("\n").each do |move|
@@ -27,3 +47,4 @@ def moves(sequence)
     end
   end
 end
+
