@@ -48,3 +48,26 @@ def moves(sequence)
   end
 end
 
+def move(arrangement, instruction) 
+  size = instruction[:moves]
+
+  crates = arrangement[instruction[:from]].pop(size).reverse
+  arrangement[instruction[:to]] = arrangement[instruction[:to]] + crates
+  
+  arrangement
+end
+
+def top_crates(drawing, sequence)
+  instructions = moves(sequence)
+  setup = arrangement(drawing)
+
+  instructions.each do |instruction|
+    setup = move(setup, instruction)
+  end  
+
+  setup = setup.drop(1)
+  
+  setup.map(&:pop).join
+end
+
+p top_crates(drawing, sequence)
