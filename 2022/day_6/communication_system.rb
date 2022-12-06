@@ -5,14 +5,21 @@ require "input.rb"
 path = "data/day_6/input.txt"
 transmission = Input.new(path).to_chr_array
 
-def packet_start?(sequence)
+def start?(sequence)
   sequence.count == sequence.uniq.count
 end
 
-def marker_position(transmission)
+def packet_position(transmission)
   transmission.each_index do |index|
-    return index + 4 if packet_start?(transmission[index, 4])
+    return index + 4 if start?(transmission[index, 4])
   end
 end
 
-p marker_position(transmission)
+def message_position(transmission)
+  transmission.each_index do |index|
+    return index + 14 if start?(transmission[index, 14])
+  end
+end
+
+p packet_position(transmission)
+p message_position(transmission)
