@@ -1,7 +1,6 @@
 # https://adventofcode.com/2022/day/5
 
 # After the rearrangement procedure completes, what crate ends up on top of each stack?
-require 'set'
 
 $LOAD_PATH << './lib'
 require "input.rb"
