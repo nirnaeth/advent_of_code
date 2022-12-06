@@ -69,3 +69,24 @@ def highest_seat(passes)
 end
 
 p highest_seat(boarding_passes)
+
+# solution from https://www.reddit.com/r/adventofcode/comments/k71h6r/2020_day_05_solutions/gijw9ky/
+def my_seat(passes)
+  seats = [].tap do |a|
+    passes.each do |pass|
+      rows, columns = parse(pass)
+      row_number = row(rows)
+      column_number = column(columns)
+      
+      a << seat(row_number, column_number)
+    end
+  end.sort
+
+  all = (seats.first..seats.last).to_a
+
+  my_seat = (all - seats).pop
+
+  my_seat
+end
+
+p my_seat(boarding_passes)
