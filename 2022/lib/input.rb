@@ -13,6 +13,10 @@ class Input
     file.read.split(separator)
   end
 
+  def to_chr_array
+    file.read.chars
+  end
+
   def to_bit_matrix
     [].tap do |matrix|
       to_str_array.each do |line|

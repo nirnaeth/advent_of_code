@@ -44,6 +44,16 @@ RSpec.describe Input do
     end
   end
 
+  describe '#to_chr_array' do
+    it 'reads the file and convert the contained string in an array of characters' do
+      path = 'spec/lib/data/chr_array.txt'
+      source = Input.new(path)
+
+      day_input = source.to_chr_array
+
+      expect(day_input).to eq ["m", "j", "q", "j", "p", "q", "m", "g", "b", "l", "j", "s", "p", "h", "d", "z", "t", "n", "v", "j", "f", "q", "w", "r", "c", "g", "s", "m", "l", "b"]
+    end
+  end
 #   describe '#to_bit_matrix' do
 #     it 'reads the file and converts it in a matrix of bits' do
 #       path = 'spec/lib/data/bit_matrix.txt'
