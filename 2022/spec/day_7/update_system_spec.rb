@@ -2,28 +2,90 @@ require "pry"
 require "./day_7/update_system.rb"
 
 RSpec.describe "#filesystem" do
-  it "ignores the ls command" do
-    test_data = ["$ ls"]
-    
-    expect(filesystem(test_data)).to eq({})
-  end
-
   it "initializes the directory with the root" do
     test_data = ["$ cd /"]
 
-    expect(filesystem(test_data)).to eq({ "/" => {} })
+    expect(filesystem(test_data)).to eq({ 
+      "/" => { 
+        "parent" => "/", 
+        "children" => [], 
+        "size" => 0 
+      } 
+    })
   end
 
   it "adds a directory to the content of its parent" do
     test_data = [
       "$ cd /",
+      "$ ls",
       "dir a"
     ]
 
     expect(filesystem(test_data)).to eq({
-      "/" => {
-        "a" => {}
-      }
+      "/" => { 
+        "parent" => "/", 
+        "children" => [
+          "a" => { 
+            "parent" => "/", 
+            "children" => [], 
+            "size" => 0 
+          }
+        ], 
+        "size" => 0 
+      } 
+    })
+  end
+
+  it "adds a file to the content of its parent" do
+    test_data = [
+      "$ cd /",
+      "$ ls",
+      "14848514 b.txt"
+    ]
+    
+    expect(filesystem(test_data)).to eq({
+      "/" => { 
+        "parent" => "/", 
+        "children" => [
+          "b.txt" => { 
+            "parent" => "/", 
+            "children" => [], 
+            "size" => 14848514
+          }
+        ], 
+        "size" => 0 
+      } 
+    })
+  end
+  
+  it "navigates deeper" do
+    test_data = [
+      "$ cd /",
+      "$ ls",
+      "dir a",
+      "$ cd a",
+      "$ ls",
+      "dir e"
+    ]
+    
+    expect(filesystem(test_data)).to eq({
+      "/" => { 
+        "parent" => "/", 
+        "children" => [
+          "a" => { 
+            "parent" => "/", 
+            "children" => [
+              "e" => { 
+                "parent" => "a", 
+                "children" => [], 
+                "size" => 0 
+              }
+            ], 
+            "size" => 0 
+          }
+        ], 
+        "size" => 0 
+      } 
     })
   end
 
