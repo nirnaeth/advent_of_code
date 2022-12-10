@@ -47,3 +47,12 @@ RSpec.describe "#visible?" do
     expect(visible?(test_data, visible_tree)).to eq false
   end
 end
+
+RSpec.describe "visible_trees" do
+  it "returns the number of visible tree in the map" do
+    path = "spec/data/day_8/input.txt"
+    test_data = Input.new(path).to_coordinates
+
+    expect(visible_trees(test_data)).to eq 21
+  end
+end
