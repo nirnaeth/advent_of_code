@@ -32,6 +32,7 @@ def add_nodes(commands, parent)
     line = commands.shift
   end
 
+  commands.unshift(line)
   nodes
 end
 
@@ -41,7 +42,7 @@ def filesystem(commands, structure = {}, parent = nil)
   if command == "$ ls"
     structure[parent]["children"] = add_nodes(commands, parent)
   end
-  
+
   if command.start_with? "$ cd"
     location = command.split(" ").last
 
@@ -51,18 +52,19 @@ def filesystem(commands, structure = {}, parent = nil)
         "children" => [],
         "size" => 0
       })
-  
-      binding.pry
-      
+       
+      filesystem(commands, structure, location) unless commands.empty?
     elsif location == ".."
       # todo
     else
-      binding.pry
-      structure[location]["children"] = add_nodes(commands, location)
-    end
+      # binding.pry
+      # structure[location]["children"] = add_nodes(commands, location)
 
-    filesystem(commands, structure, location) unless commands.empty?
+      # filesystem(commands, structure[location], location) unless commands.empty?
+    end
   end
+
+  # filesystem(commands, structure, parent) unless commands.empty?
 
   structure
 
