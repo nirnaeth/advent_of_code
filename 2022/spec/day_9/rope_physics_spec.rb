@@ -127,3 +127,12 @@ RSpec.describe "#move" do
     end
   end
 end
+
+RSpec.describe "tail_positions" do
+  it "returns the number of positions visited by the tail" do
+    path = "spec/data/day_9/input.txt"
+    test_data = Input.new(path).to_str_array
+
+    expect(tail_positions(test_data)).to eq 13
+  end
+end

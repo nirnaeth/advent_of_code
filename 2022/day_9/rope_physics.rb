@@ -21,7 +21,7 @@ def move(instruction, head, tail)
     head.x += steps
     
     if !touching?(head, tail) 
-      binding.pry
+
       if head.x != tail.x && head.y == tail.y # same row, different column
         tail.x = head.x - 1
       elsif head.x == head.y && tail.x != tail.y # same column, different row
@@ -40,6 +40,7 @@ def move(instruction, head, tail)
     head.y += steps
 
     if !touching?(head, tail) 
+
       if head.x == head.y && tail.x != tail.y # same column, different row
         tail.x = head.x
         tail.y = head.y - 1
@@ -54,6 +55,7 @@ def move(instruction, head, tail)
     head.x -= steps
 
     if !touching?(head, tail)
+
       if head.x != tail.x && head.y == tail.y # same row, different column
 
       elsif head.x == head.y && tail.x != tail.y # same column, different row
@@ -81,3 +83,28 @@ def move(instruction, head, tail)
     }
   end
 end
+
+def tail_positions(instructions)
+  head = Point.new(0, 0)
+  tail = Point.new(0, 0)
+
+  instructions.each do |i|
+    new_points = move(i, head, tail)
+    head = Point.new(new_points[:head].first, new_points[:head].last)
+    tail = Point.new(new_points[:tail].first, new_points[:tail].last)
+  end
+
+  TODO: operations are correct on the input
+  need to record visited positions by tail
+
+  return {head: head, tail: tail }
+end
+
+# Last 
+# ......
+# ......
+# .TH...
+# ......
+# s.....
+
+p tail_positions(instructions)
