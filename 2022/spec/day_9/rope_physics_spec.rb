@@ -47,3 +47,33 @@ RSpec.describe "#touching?" do
     expect(touching?(head, tail)).to be false
   end
 end
+
+RSpec.describe "#move" do
+  it "moves the head right" do
+    head = Point.new(0, 0)
+    instruction = "R 4"
+
+    expect(move(instruction, head)).to eq [4, 0]
+  end
+
+  it "moves the head up" do
+    head = Point.new(0, 0)
+    instruction = "U 4"
+
+    expect(move(instruction, head)).to eq [0, 4]
+  end
+
+  it "moves the head left" do
+    head = Point.new(0, 0)
+    instruction = "L 3"
+
+    expect(move(instruction, head)).to eq [-3, 0]
+  end
+
+  it "moves the head down" do
+    head = Point.new(0, 0)
+    instruction = "D 1"
+
+    expect(move(instruction, head)).to eq [0, -1]
+  end
+end
