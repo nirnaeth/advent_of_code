@@ -48,11 +48,49 @@ RSpec.describe "#visible?" do
   end
 end
 
-RSpec.describe "visible_trees" do
-  it "returns the number of visible tree in the map" do
+RSpec.describe "#visible_trees" do
+  it "returns the trees visible in the map" do
     path = "spec/data/day_8/input.txt"
     test_data = Input.new(path).to_coordinates
 
-    expect(visible_trees(test_data)).to eq 21
+    expect(visible_trees(test_data).count).to eq 21
+  end
+end
+
+RSpec.describe "#score" do
+  it "returns the number of trees between the current tree and the tallest tree in a defined direction" do
+    visible_tree = Tree.new(2, 1, 5)
+    test_data = [3, 5, 3]
+    
+    expect(score(test_data, visible_tree)).to eq 2
+  end
+
+  it "returns the number of trees between the current tree and the edge to the right" do
+    visible_tree = Tree.new(2, 1, 5)
+    test_data = [1, 2]
+    
+    expect(score(test_data, visible_tree)).to eq 2
+  end
+  
+  it "returns the number of trees between the current tree and the edge to the right" do
+    visible_tree = Tree.new(2, 1, 5)
+    test_data = [1, 2]
+    
+    expect(score(test_data, visible_tree)).to eq 2
+  end
+end
+
+RSpec.describe "#scenic_score" do
+  it "returns the scenic scores for the visible trees on the map" do
+    path = "spec/data/day_8/input.txt"
+    test_data = Input.new(path).to_coordinates
+
+    expect(scenic_score(test_data)).to eq({
+      "0:0" => 0, "1:0" => 0, "2:0" => 0, "3:0" => 0, "4:0" => 0, 
+      "0:1" => 0, "1:1" => 1, "2:1" => 4, "4:1" => 0, 
+      "0:2" => 0, "1:2" => 6, "3:2" => 2, "4:2" => 0, 
+      "0:3" => 0, "2:3" => 8, "4:3" => 0, 
+      "0:4" => 0, "1:4" => 0, "2:4" => 0, "3:4" => 0, "4:4" => 0
+    })
   end
 end
