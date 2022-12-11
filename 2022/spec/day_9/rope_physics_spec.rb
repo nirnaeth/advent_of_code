@@ -101,6 +101,17 @@ RSpec.describe "#move" do
         tail: [2, 4]
       })
     end
+
+    it "moves the head right and the tail along the head across a diagonal" do
+      head = Point.new(1, 3)
+      tail = Point.new(2, 4)
+      instruction = "R 4"
+
+      expect(move(instruction, head, tail)).to eq({
+        head: [5, 3],
+        tail: [4, 3]
+      })
+    end
   end
 
   context "when head and tail are touching" do

@@ -21,8 +21,14 @@ def move(instruction, head, tail)
     head.x += steps
     
     if !touching?(head, tail) 
+      binding.pry
       if head.x != tail.x && head.y == tail.y # same row, different column
         tail.x = head.x - 1
+      elsif head.x == head.y && tail.x != tail.y # same column, different row
+
+      else
+        tail.x = head.x - 1
+        tail.y = head.y
       end
     end
     
