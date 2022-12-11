@@ -1,1 +1,5 @@
 .DS_Store
+2018/input/*.txt
+2020/support/day_*/*.txt
+2021/support/day_*/*.txt
+2022/data/day_*/*.txt
