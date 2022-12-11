@@ -68,39 +68,51 @@ RSpec.describe "#touching?" do
 end
 
 RSpec.describe "#move" do
-  it "moves the head right and the tail along the head when on the same row" do
-    head = Point.new(0, 0)
-    tail = Point.new(0, 0)
-    instruction = "R 4"
+  context "when head and tail are not touching" do
+    it "moves the head right and the tail along the head when on the same row" do
+      head = Point.new(0, 0)
+      tail = Point.new(0, 0)
+      instruction = "R 4"
 
-    expect(move(instruction, head, tail)).to eq({
-      head: [4, 0],
-      tail: [3, 0]
-    })
+      expect(move(instruction, head, tail)).to eq({
+        head: [4, 0],
+        tail: [3, 0]
+      })
+    end
+
+    it "moves the head up and the tail along the head when on the same column" do
+      head = Point.new(4, 0)
+      tail = Point.new(3, 0)
+      instruction = "U 4"
+
+      expect(move(instruction, head, tail)).to eq({
+        head: [4, 4],
+        tail: [4, 3]
+      })
+    end
+
+    it "moves the head left and the tail along the head across a diagonal" do
+      head = Point.new(4, 4)
+      tail = Point.new(4, 3)
+      instruction = "L 3"
+
+      expect(move(instruction, head, tail)).to eq({
+        head: [1, 4],
+        tail: [2, 4]
+      })
+    end
   end
 
-  it "moves the head up and the tail along the head when on the same column" do
-    head = Point.new(4, 0)
-    tail = Point.new(3, 0)
-    instruction = "U 4"
-
-    expect(move(instruction, head, tail)).to eq({
-      head: [4, 4],
-      tail: [4, 3]
-    })
-  end
-
-  it "moves the head left" do
-    head = Point.new(0, 0)
-    instruction = "L 3"
-
-    expect(move(instruction, head)).to eq [-3, 0]
-  end
-
-  it "moves the head down" do
-    head = Point.new(0, 0)
-    instruction = "D 1"
-
-    expect(move(instruction, head)).to eq [0, -1]
+  context "when head and tail are touching" do
+    it "moves the head down and not the tail when on the same column" do
+      head = Point.new(1, 4)
+      tail = Point.new(2, 4)
+      instruction = "D 1"
+  
+      expect(move(instruction, head, tail)).to eq({
+        head: [1, 3],
+        tail: [2, 4]
+      })
+    end
   end
 end

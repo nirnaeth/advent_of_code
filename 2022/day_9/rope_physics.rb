@@ -33,10 +33,45 @@ def move(instruction, head, tail)
   when "U"
     head.y += steps
 
-    [head.x, head.y + steps]
+    if !touching?(head, tail) 
+      if head.x == head.y && tail.x != tail.y # same column, different row
+        tail.x = head.x
+        tail.y = head.y - 1
+      end
+    end
+
+    { 
+      head: [head.x, head.y],
+      tail: [tail.x, tail.y]
+    }
   when "L"
-    [head.x - steps, head.y]
+    head.x -= steps
+
+    if !touching?(head, tail)
+      if head.x != tail.x && head.y == tail.y # same row, different column
+
+      elsif head.x == head.y && tail.x != tail.y # same column, different row
+      
+      else # diagonal
+        tail.x = head.x + 1
+        tail.y = head.y
+      end
+    end
+    
+    { 
+      head: [head.x, head.y],
+      tail: [tail.x, tail.y]
+    }
   when "D"
-    [head.x, head.y - steps]
+    head.y -= steps
+
+    if !touching?(head, tail)
+
+    end
+
+    { 
+      head: [head.x, head.y],
+      tail: [tail.x, tail.y]
+    }
   end
 end
