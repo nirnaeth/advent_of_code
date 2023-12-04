@@ -2,6 +2,31 @@
 
 ## What I learned (or recalled) thanks to [Advent of Code](adventofcode.com/)
 
+### 2023
+Language: Ruby
+
+**Day 1**
+TIL about
+* Capturing groups and lookahead in regexp
+
+> In regular expressions, checking for overlapping strings (also known as overlapping matches) can be challenging because once a portion of the string is matched, it is consumed, and the regex engine moves forward in the input string. This means that the same portion of the string cannot be part of multiple matches.
+
+```ruby
+input_string = "ababab"
+pattern = /(?=(aba))/
+
+matches = []
+input_string.scan(pattern) do
+  matches << Regexp.last_match[1]
+end
+
+puts "Overlapping Matches: #{matches}"
+
+```
+> In this example, the regex pattern (?=(aba)) uses a positive lookahead to find occurrences of "aba" in the input string. The capturing group (aba) captures the matched portion. 
+
+[Understanding negative and positive lookahead](https://stackoverflow.com/a/27691287)
+
 ### 2022
 Language: Ruby
 
