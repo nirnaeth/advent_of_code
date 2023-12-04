@@ -22,6 +22,13 @@ RSpec.describe "#clean_data" do
 
     expect(clean_data(test_data)).to match [14]
   end
+
+  it "returns digits for overlapping literals" do
+    path = "spec/data/day_1/part_2/overlapping_literals.txt"
+    test_data = Input.new(path).to_str_array("\n")
+
+    expect(clean_data(test_data)).to match [83, 79]
+  end
 end
 
 RSpec.describe "#calibration_sum" do

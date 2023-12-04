@@ -17,8 +17,10 @@ def is_literal_digit?(string)
 end
 
 def clean_data(values)
+  ## the regex needs a lookahead to avoid consuming strings, since some of the input
+  #  can be overlapping, for example eighthree should match 83
   rows = values
-    .map { |string| string.scan(/(zero|one|two|three|four|five|six|seven|eight|nine|\d+)/) }
+    .map { |string| string.scan( /(?=(zero|one|two|three|four|five|six|seven|eight|nine|\d+))/ ) }
     .map do |array| 
       array.map do |element| 
         element = element.pop
@@ -33,4 +35,8 @@ def calibration_sum(calibration_data)
   clean_data(calibration_data).sum
 end
 
-# p calibration_sum(values)
+p calibration_sum(values)
+
+## other weird cases
+# seight3qvmq2f1kkfone
+# 1anwsaojsaijqwoida
