@@ -6,10 +6,26 @@ require "input.rb"
 path = "data/day_1/part_2/input.txt"
 values = Input.new(path).to_str_array("\n")
 
+def is_literal_digit?(string) 
+  literals = ["zero", "one", "two", "three", "four", "five", "six", "seven", "eight" , "nine"]
+  
+  if literals.include?(string)
+    literals.index(string).to_s
+  else
+    false
+  end
+end
+
 def clean_data(values)
   rows = values
-    .map { |string| string.scan(/\b(?:zero|one|two|three|four|five|six|seven|eight|nine|\d+)\b/i) }
-    .map { |array| array.map { |element| element.split("") }.flatten }
+    .map { |string| string.scan(/(zero|one|two|three|four|five|six|seven|eight|nine|\d+)/) }
+    .map do |array| 
+      array.map do |element| 
+        element = element.pop
+        is_literal_digit?(element) || element.split("") 
+      end
+      .flatten
+    end
     .map { |element| (element.first + element.last).to_i } 
 end
 
@@ -17,4 +33,4 @@ def calibration_sum(calibration_data)
   clean_data(calibration_data).sum
 end
 
-p calibration_sum(values)
+# p calibration_sum(values)
