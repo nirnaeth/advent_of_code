@@ -3,7 +3,7 @@
 $LOAD_PATH << './lib'
 require "input.rb"
 
-path = "data/day_1/input.txt"
+path = "data/day_1/part_1/input.txt"
 values = Input.new(path).to_str_array("\n")
 
 def clean_data(values)
