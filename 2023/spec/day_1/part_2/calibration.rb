@@ -9,19 +9,19 @@ RSpec.describe "#clean_data" do
     expect(clean_data(test_data)).to match [29, 83, 13, 24, 42, 14, 76]
   end
 
-  # it "returns the first and last digit if the string is all numbers" do
-  #   path = "spec/data/day_1/part_2/single_number.txt"
-  #   test_data = Input.new(path).to_str_array("\n")
+  it "returns the first and last digit if the string is all numbers" do
+    path = "spec/data/day_1/part_2/single_number.txt"
+    test_data = Input.new(path).to_str_array("\n")
 
-  #   expect(clean_data(test_data)).to match [68]
-  # end
+    expect(clean_data(test_data)).to match [67]
+  end
 
-  # it "returns the first and last digit if the string has the last number with multiple digits" do
-  #   path = "spec/data/day_1/part_2/double_number.txt"
-  #   test_data = Input.new(path).to_str_array("\n")
+  it "returns the first and last digit if the string has the last number with multiple digits" do
+    path = "spec/data/day_1/part_2/double_number.txt"
+    test_data = Input.new(path).to_str_array("\n")
 
-  #   expect(clean_data(test_data)).to match [82]
-  # end
+    expect(clean_data(test_data)).to match [14]
+  end
 end
 
 RSpec.describe "#calibration_sum" do
