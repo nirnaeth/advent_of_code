@@ -27,6 +27,15 @@ puts "Overlapping Matches: #{matches}"
 
 [Understanding negative and positive lookahead](https://stackoverflow.com/a/27691287)
 
+**Day 2**
+
+I should have not chosen that kind of data structure for storing the games.
+Probably using the colors as keys and associating game / hand / number might 
+have ended up in fewer cycles.
+
+I should have also found a way to initialize the keys that weren't present once 
+so to avoid using .fetch all the time.
+
 ### 2022
 Language: Ruby
 

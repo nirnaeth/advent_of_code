@@ -65,6 +65,29 @@ RSpec.describe "#possible_games" do
   end
 end
 
+RSpec.describe "#set" do
+  it "generates the set with the minimum amount of cubes to play a game" do
+    expect(set(games_array[0])).to eq({ red: 4, green: 2, blue: 6 })
+  end
+end
+
+RSpec.describe "#power" do
+  it "calculates the power of a game's set of cubes" do
+    set = { red: 4, green: 2, blue: 6 }
+
+    expect(power(set)).to eq 48
+  end
+end
+
+RSpec.describe "#sum_of_powers" do
+  it "calculates the sum of all the games' powers" do
+    path = "spec/data/day_2/input.txt"
+    test_data = Input.new(path).to_str_array("\n")
+
+    expect(sum_of_powers(test_data)).to eq 2286
+  end
+end
+
 def games_array
   [
     [

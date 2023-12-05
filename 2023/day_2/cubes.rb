@@ -51,4 +51,39 @@ def possible_games(values)
   end
 end
 
-p possible_games(games).sum
+# p possible_games(games).sum
+
+def set(game)
+  min = {
+    blue: 0,
+    green: 0,
+    red: 0
+  }
+
+  game.each do |hand|
+    blue = hand.fetch(:blue, 0)
+    red = hand.fetch(:red, 0)
+    green = hand.fetch(:green, 0)
+
+    min[:blue] = blue if blue > min[:blue]
+    min[:red] = red if red > min[:red]
+    min[:green] = green if green > min[:green]
+  end
+
+  min
+end
+
+def power(set)
+  set.fetch(:blue, 1) * set.fetch(:red, 1) * set.fetch(:green, 1)
+end
+
+def sum_of_powers(values)
+  games_hash = parse(values)
+
+  games_hash
+    .map { |game| set(game) }
+    .map { |set| power(set) } 
+    .sum
+end
+
+p sum_of_powers(games)
