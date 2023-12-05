@@ -18,11 +18,58 @@ RSpec.describe "#parse" do
   end
 end
 
+RSpec.describe "valid_hand?" do
+  context "when all keys are present" do
+    context "when all values are below the allowed max" do
+      it "confirms that a hand is valid" do
+        hand = { blue: 7, green: 1, red: 5}
+
+        expect(valid_hand?(hand)).to be true
+      end
+    end
+
+    context "when at least one of the values is above the allowed max" do
+      it "confirms that a hand is not valid" do
+        hand = { blue: 20, green: 1, red: 5}
+
+        expect(valid_hand?(hand)).to be false
+      end
+    end
+  end
+
+  context "when at least one key is missing" do
+    context "when all values are below the allowed max" do
+      it "confirms that a hand is valid" do
+        hand = { blue: 7, green: 1}
+
+        expect(valid_hand?(hand)).to be true
+      end
+    end
+
+    context "when at least one of the values is above the allowed max" do
+      it "confirms that a hand is not valid" do
+        hand = { blue: 20, green: 1}
+
+        expect(valid_hand?(hand)).to be false
+      end
+    end
+  end
+end
+
+RSpec.describe "#possible_games" do
+  it "returns the index of the games that are possible given a max number of cubes of a certain color" do
+    path = "spec/data/day_2/input.txt"
+    test_data = Input.new(path).to_str_array("\n")
+
+    expect(possible_games(test_data)).to eq [1, 2, 5]
+  end
+end
+
 def games_array
   [
     [
-      { blue: 3, red: 4},
-      { red: 1, green: 2, blue: 6},
+      { blue: 3, red: 4 },
+      { red: 1, green: 2, blue: 6 },
       { green: 2 }
     ],
     [

@@ -25,3 +25,30 @@ def parse(values)
     .map { |hands| hands.map { |hand| hand_to_hash(hand.pop) } }
 end
 
+def valid_hand?(hand)
+  max = {
+    red: 12,
+    green: 13,
+    blue: 14
+  }
+
+  blue = hand.fetch(:blue, 0)
+  green = hand.fetch(:green, 0)
+  red = hand.fetch(:red, 0)
+
+  blue <= max[:blue] && green <= max[:green] && red <= max[:red]
+end
+
+def possible_games(values)
+  games_hash = parse(values)
+
+  [].tap do |possible|
+    games_hash.each_with_index do |hands, index| 
+      valid_hands = hands.select { |hand| valid_hand?(hand) } 
+      
+      possible << index + 1 if hands.count == valid_hands.count
+    end
+  end
+end
+
+p possible_games(games).sum
