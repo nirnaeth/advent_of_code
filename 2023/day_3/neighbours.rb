@@ -30,6 +30,11 @@ def parse(rows)
         current_number += char
         current_coordinates << [y, x]
       else
+        numbers << [current_number.to_i, current_coordinates] if !current_number.empty? # skips empty states
+
+        current_number = ""
+        current_coordinates = []
+        
         symbols << [char, neighbours(y, x)]
       end
 
