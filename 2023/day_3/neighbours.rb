@@ -30,7 +30,7 @@ def parse(rows)
         current_number += char
         current_coordinates << [y, x]
       else
-        symbols << { char => [y, x] }
+        symbols << { char => neighbours(y, x) }
       end
     end
   end
@@ -39,7 +39,7 @@ def parse(rows)
 end
 
 
-def neighbours(x, y)
+def neighbours(y, x)
   # diagonals - from [here](https://todd.ginsberg.com/post/advent-of-code/2021/day11/)
 
   neighbours = []
