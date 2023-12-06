@@ -4,10 +4,10 @@ $LOAD_PATH << './lib'
 require "input.rb"
 
 path = "data/day_3/input.txt"
-rows = Input.new(path).to_str_array("\n")
+values = Input.new(path).to_str_array("\n")
 
 def parse(rows)
-  numbers = {}
+  numbers = []
   symbols = []
 
   rows.each_with_index do |row, y|
@@ -19,7 +19,7 @@ def parse(rows)
     chars.each_with_index do |char, x|
       ## valid characters are finished, let's collect the numbers
       if char == '.'
-        numbers[current_number.to_i] = current_coordinates if !current_number.empty? # skips empty states
+        numbers << [current_number.to_i, current_coordinates] if !current_number.empty? # skips empty states
 
         current_number = ""
         current_coordinates = []
@@ -57,14 +57,38 @@ def neighbours(y, x)
   neighbours
 end
 
-def parts(rows)
-  numbers, symbols = parse(rows)
+def parts(values)
+  numbers, symbols = parse(values)
 
-  [].tap do |parts|
-    symbols.each do |symbol|
-      numbers.each do |number, coordinates|
-        parts << number if !parts.include?(number) && !(symbol.last & coordinates).empty?
-      end
+  part_numbers = []
+  # binding.pry
+  symbols.each do |symbol|
+    numbers.each do |number|
+      part_numbers << number[0] unless (symbol.last & number[1]).empty?
     end
   end  
+
+  # binding.pry
+  part_numbers
 end
+
+p parts(values).sum
+
+# 910
+# 233
+# 189
+# 391
+# 789
+# 983
+# 106
+# 226
+# 0
+# 812
+# 812
+# 851
+# 99
+# 711
+# 113
+# 28
+
+# 7253 
