@@ -7,7 +7,7 @@ path = "data/day_3/input.txt"
 rows = Input.new(path).to_str_array("\n")
 
 def parse(rows)
-  numbers = []
+  numbers = {}
   symbols = []
 
   rows.each_with_index do |row, y|
@@ -19,7 +19,7 @@ def parse(rows)
     chars.each_with_index do |char, x|
       ## valid characters are finished, let's collect the numbers
       if char == '.'
-        numbers << { (current_number.to_i) => current_coordinates} if !current_number.empty? # skips empty states
+        numbers[current_number.to_i] = current_coordinates if !current_number.empty? # skips empty states
 
         current_number = ""
         current_coordinates = []
@@ -30,14 +30,13 @@ def parse(rows)
         current_number += char
         current_coordinates << [y, x]
       else
-        symbols << { char => neighbours(y, x) }
+        symbols << [char, neighbours(y, x)]
       end
     end
   end
 
   return numbers, symbols
 end
-
 
 def neighbours(y, x)
   # diagonals - from [here](https://todd.ginsberg.com/post/advent-of-code/2021/day11/)
@@ -56,4 +55,16 @@ def neighbours(y, x)
   neighbours << [y + 1, x + 1] # bottom right
   
   neighbours
+end
+
+def parts(rows)
+  numbers, symbols = parse(rows)
+
+  [].tap do |parts|
+    symbols.each do |symbol|
+      numbers.each do |number, coordinates|
+        parts << number if !parts.include?(number) && !(symbol.last & coordinates).empty?
+      end
+    end
+  end  
 end
