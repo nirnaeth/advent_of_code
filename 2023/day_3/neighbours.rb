@@ -13,16 +13,22 @@ def parse(rows)
   rows.each_with_index do |row, y|
     chars = row.split('')
 
-    current_number = nil
+    current_number = ""
+    current_coordinates = []
 
     chars.each_with_index do |char, x|
+      ## valid characters are finished, let's collect the numbers
       if char == '.'
-        # numbers << { current_number && current_number.to_i }
+        numbers << { (current_number.to_i) => current_coordinates} if !current_number.empty? # skips empty states
+
+        current_number = ""
+        current_coordinates = []
         next
       end
 
       if char =~ /^\d$/
-
+        current_number += char
+        current_coordinates << [y, x]
       else
         symbols << { char => [y, x] }
       end
@@ -33,20 +39,21 @@ def parse(rows)
 end
 
 
-# def neighbours(x, y, map)
-#   neighbours = {}
+def neighbours(x, y)
+  # diagonals - from [here](https://todd.ginsberg.com/post/advent-of-code/2021/day11/)
 
-#   neighbours["#{y}:#{x - 1}"] = map["#{y}:#{x - 1}"] # right
-#   neighbours["#{y + 1}:#{x}"] = map["#{y + 1}:#{x}"] # down
-#   neighbours["#{y}:#{x + 1}"] = map["#{y}:#{x + 1}"] # left
-#   neighbours["#{y - 1}:#{x}"] = map["#{y - 1}:#{x}"] # top
+  neighbours = []
+
+  neighbours << [y - 1, x - 1] # top left
+  neighbours << [y - 1, x] # top
+  neighbours << [y - 1, x + 1] # top right
+
+  neighbours << [y, x - 1] # left
+  neighbours << [y, x + 1] # right
   
-#   # diagonals - from [here](https://todd.ginsberg.com/post/advent-of-code/2021/day11/)
-
-#   neighbours["#{y - 1}:#{x - 1}"] = map["#{y - 1}:#{x - 1}"] # top left
-#   neighbours["#{y + 1}:#{x + 1}"] = map["#{y + 1}:#{x + 1}"] # bottom right
-#   neighbours["#{y - 1}:#{x + 1}"] = map["#{y - 1}:#{x + 1}"] # top right
-#   neighbours["#{y + 1}:#{x - 1}"] = map["#{y + 1}:#{x - 1}"] # bottom left
-
-#   neighbours.select { |_, energy| energy != nil}
-# end
+  neighbours << [y + 1, x - 1] # bottom left
+  neighbours << [y + 1, x] # bottom
+  neighbours << [y + 1, x + 1] # bottom right
+  
+  neighbours
+end

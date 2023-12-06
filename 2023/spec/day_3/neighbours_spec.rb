@@ -8,8 +8,41 @@ RSpec.describe "#parse" do
 
     numbers, symbols = parse(test_data)
 
-    # expect(numbers).to eq expected_numbers
+    expect(numbers).to eq expected_numbers
     expect(symbols).to eq expected_symbols
+  end
+end
+
+RSpec.describe '#neighbours' do
+  it 'finds the neighbours of a point' do
+    x = 2
+    y = 3    
+
+    expect(neighbours(x, y)).to match [
+      [2, 1], [2, 2], [2, 3], 
+      [3, 1], [3, 3], 
+      [4, 1], [4, 2], [4, 3]
+    ]
+  end
+
+  xit 'discards neighbours out of the map' do
+    x = 1
+    y = 0
+
+    octopi = {
+      '0:0' => 1,
+      '0:1' => 9,
+      '0:2' => 9,
+      '0:3' => 9,
+      '0:4' => 1
+    }
+
+    expect(neighbours(x, y, octopi)).to eq (
+      {
+        "0:0" => 1, 
+        "0:2" => 9
+      }
+    )
   end
 end
 
@@ -22,10 +55,10 @@ def expected_numbers
     { 633 => [[2, 6], [2, 7], [2, 8]] },
     { 617 => [[4, 0], [4, 1], [4, 2]] },
     { 58 =>  [[5, 7], [5, 8]] },
-    { 592 => [[6, 2], [6, 2], [6, 3]] },
+    { 592 => [[6, 2], [6, 3], [6, 4]] },
     { 755 => [[7, 6], [7, 7], [7, 8]] },
     { 664 => [[9, 1], [9, 2], [9, 3]] },
-    { 592 => [[9, 5], [9, 6], [9, 7]] }
+    { 598 => [[9, 5], [9, 6], [9, 7]] }
   ]
 end
 
