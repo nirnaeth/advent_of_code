@@ -36,6 +36,20 @@ have ended up in fewer cycles.
 I should have also found a way to initialize the keys that weren't present once 
 so to avoid using .fetch all the time.
 
+**Day 3**
+If you want to add an element to a hash where the value is an empty array, you can write:
+```ruby
+# Create an empty hash with an empty array as the default value
+my_hash = Hash.new { |hash, key| hash[key] = [] }
+
+# Add an element to the array in the hash
+my_hash[:key1] << 'value1'
+
+puts "Updated hash: #{my_hash}"
+
+```
+
+
 ### 2022
 Language: Ruby
 

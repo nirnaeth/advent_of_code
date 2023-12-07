@@ -31,12 +31,19 @@ RSpec.describe '#parts' do
     path = "spec/data/day_3/input.txt"
     test_data = Input.new(path).to_str_array("\n")
     
-    # expect(parts(test_data)).to match_array [467, 35, 633, 617, 592, 755, 664, 598]
     expect(parts(test_data)).to match_array [467, 35, 633, 617, 592, 755, 664, 598]
     
   end
 end
 
+RSpec.describe "#gears" do
+  it 'lists the resulting multiplications of identified gears' do
+    path = "spec/data/day_3/input.txt"
+    test_data = Input.new(path).to_str_array("\n")
+    
+    expect(gears(test_data)).to match_array [16345, 451490]
+  end
+end
 
 def expected_numbers
   # [y, x]

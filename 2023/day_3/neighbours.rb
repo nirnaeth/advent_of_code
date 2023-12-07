@@ -73,34 +73,39 @@ def parts(values)
   numbers, symbols = parse(values)
 
   part_numbers = []
-  # binding.pry
+  
   symbols.each do |symbol|
     numbers.each do |number|
       part_numbers << number[0] unless (symbol.last & number[1]).empty?
     end
   end  
 
-  # binding.pry
   part_numbers
 end
 
-p parts(values).sum
+# p parts(values).sum
 
-# 910
-# 233
-# 189
-# 391
-# 789
-# 983
-# 106
-# 226
-# 0
-# 812
-# 812
-# 851
-# 99
-# 711
-# 113
-# 28
+def gears(values)
+  numbers, symbols = parse(values)
 
-# 7253 
+  potential_gears = Hash.new { |hash, key| hash[key] = [] }
+
+  symbols.each do |symbol|
+    next unless symbol[0] == '*'
+
+    numbers.each do |number|
+      potential_gears[symbol] << number[0] unless (symbol.last & number[1]).empty?
+    end
+  end
+
+  # multiply gears
+  [].tap do |gears|
+    potential_gears.map do |_, value|
+      next if value.length < 2 # skip non-gears
+
+      gears << value.reduce(:*)
+    end
+  end
+end
+
+p gears(values).sum
