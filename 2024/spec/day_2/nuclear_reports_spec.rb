@@ -13,4 +13,10 @@ RSpec.describe "#is_safe?" do
 
     expect(is_safe?(report)).to be false
   end
+
+  it "returns true if the report's level are all decreasing by 1, 2, or 3" do
+    report = [7, 6, 4, 1]
+
+    expect(is_safe?(report)).to be true
+  end
 end
