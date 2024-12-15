@@ -7,8 +7,8 @@ distances = Input.new(path).to_pairs_array("\n")
 
 def lists(distances)
   distances
-    .map { |stash| stash.split("\n").map(&:to_i).sum }
-    .max
+    .transpose
+    .map(&:sort)
 end
 
 # p max(stashes)
@@ -16,10 +16,11 @@ end
 def calculate_distance(left_list, right_list)
   distance = 0
   left_list.size.times do |n|
-    distance += (left_list[n] - right_list[n])
+    distance += (left_list[n] - right_list[n]).abs
   end
 
-  -distance
+  distance
 end
 
-# p calculate_distance(left_list, right_list)
+inputs = lists(distances)
+p calculate_distance(inputs.first, inputs.last)

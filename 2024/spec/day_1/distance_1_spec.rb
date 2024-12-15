@@ -1,15 +1,14 @@
 require "pry"
 require "./day_1/distance_1.rb"
 
-RSpec.describe "#distances" do
-  it "prepares the distance lists" do
-    path = "spec/day_1/data/input.txt"
-    test_data = Input.new(path).to_int_arrays("\n")
+RSpec.describe "#lists" do
+  it "prepares the lists" do
+    input = [[3, 4], [4, 3], [2, 5], [1, 3], [3, 9], [3, 3]]
 
     left_list = [1, 2, 3, 3, 3, 4]
     right_list = [3, 3, 3, 4, 5, 9]
 
-    expect(distances).to eq [left_list, right_list]
+    expect(lists(input)).to eq [left_list, right_list]
   end
 end
 
