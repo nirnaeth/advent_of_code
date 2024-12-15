@@ -22,21 +22,30 @@ RSpec.describe Input do
     end
   end
 
-  describe '#to_pairs_array' do
-    it 'reads from disk into an array of pairs' do
-      path = 'spec/lib/data/pairs_array.txt'
+  describe '#to_int_matrix' do
+    it 'reads from disk into a matrix of integers' do
+      path = 'spec/lib/data/int_matrix.txt'
       source = Input.new(path)
 
-      day_input = source.to_pairs_array
+      day_input = source.to_int_matrix
 
-      expect(day_input).to eq [[3, 4], [4, 3], [2, 5], [1, 3], [3, 9], [3, 3]]
+      matrix = [
+        [7, 6, 4, 2, 1],
+        [1, 2, 7, 8, 9],
+        [9, 7, 6, 2, 1],
+        [1, 3, 2, 4, 5],
+        [8, 6, 4, 4, 1],
+        [1, 3, 6, 7, 9]
+      ]
+
+      expect(day_input).to eq matrix
     end
 
     it 'accepts a custom separator' do
       path = 'spec/lib/data/pairs_array_custom_separator.txt'
       source = Input.new(path)
 
-      day_input = source.to_pairs_array(',')
+      day_input = source.to_int_matrix(',')
 
       expect(day_input).to eq [[3, 4], [4, 3], [2, 5], [1, 3], [3, 9], [3, 3]]
     end

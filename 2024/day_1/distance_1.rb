@@ -3,7 +3,7 @@
 $LOAD_PATH << './lib'
 require "input.rb"
 path = "day_1/data/input.txt"
-distances = Input.new(path).to_pairs_array("\n")
+distances = Input.new(path).to_int_matrix("\n")
 
 def lists(distances)
   distances

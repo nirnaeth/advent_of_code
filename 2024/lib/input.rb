@@ -9,10 +9,10 @@ class Input
     file.read.split(separator).map(&:to_i)
   end
 
-  def to_pairs_array(separator = "\n")
-    pairs = file.read.split(separator)
+  def to_int_matrix(separator = "\n")
+    lines = file.read.split(separator)
 
-    pairs.map { |p| p.split(/\s+/).map(&:to_i) }
+    lines.map { |l| l.split(/\s+/).map(&:to_i) }
   end
 
   def to_str_array(separator = "\n")
