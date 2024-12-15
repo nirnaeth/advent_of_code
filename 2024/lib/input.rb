@@ -12,7 +12,7 @@ class Input
   def to_pairs_array(separator = "\n")
     pairs = file.read.split(separator)
 
-    pairs.map { |p| p.split(/\s+/) }
+    pairs.map { |p| p.split(/\s+/).map(&:to_i) }
   end
 
   def to_str_array(separator = "\n")

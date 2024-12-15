@@ -29,7 +29,7 @@ RSpec.describe Input do
 
       day_input = source.to_pairs_array
 
-      expect(day_input).to eq [["3", "4"], ["4", "3"], ["2", "5"], ["1", "3"], ["3", "9"], ["3", "3"]]
+      expect(day_input).to eq [[3, 4], [4, 3], [2, 5], [1, 3], [3, 9], [3, 3]]
     end
 
     it 'accepts a custom separator' do
@@ -38,7 +38,7 @@ RSpec.describe Input do
 
       day_input = source.to_pairs_array(',')
 
-      expect(day_input).to eq [["3", "4"], ["4", "3"], ["2", "5"], ["1", "3"], ["3", "9"], ["3", "3"]]
+      expect(day_input).to eq [[3, 4], [4, 3], [2, 5], [1, 3], [3, 9], [3, 3]]
     end
   end
 
