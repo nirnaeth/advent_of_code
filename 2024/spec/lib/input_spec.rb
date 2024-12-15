@@ -22,6 +22,26 @@ RSpec.describe Input do
     end
   end
 
+  describe '#to_pairs_array' do
+    it 'reads from disk into an array of pairs' do
+      path = 'spec/lib/data/pairs_array.txt'
+      source = Input.new(path)
+
+      day_input = source.to_pairs_array
+
+      expect(day_input).to eq [["3", "4"], ["4", "3"], ["2", "5"], ["1", "3"], ["3", "9"], ["3", "3"]]
+    end
+
+    it 'accepts a custom separator' do
+      path = 'spec/lib/data/pairs_array_custom_separator.txt'
+      source = Input.new(path)
+
+      day_input = source.to_pairs_array(',')
+
+      expect(day_input).to eq [["3", "4"], ["4", "3"], ["2", "5"], ["1", "3"], ["3", "9"], ["3", "3"]]
+    end
+  end
+
   describe '#to_str_array' do
     it 'reads the file and converts it in an array of strings' do
       path = 'spec/lib/data/str_array.txt'

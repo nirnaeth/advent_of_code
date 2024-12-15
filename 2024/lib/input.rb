@@ -9,6 +9,12 @@ class Input
     file.read.split(separator).map(&:to_i)
   end
 
+  def to_pairs_array(separator = "\n")
+    pairs = file.read.split(separator)
+
+    pairs.map { |p| p.split(/\s+/) }
+  end
+
   def to_str_array(separator = "\n")
     file.read.split(separator)
   end
@@ -27,7 +33,7 @@ class Input
 
   def to_coordinates
     {}.tap do |matrix|
-      to_bit_matrix.each_with_index do |row, y| 
+      to_bit_matrix.each_with_index do |row, y|
         row.each_with_index do |element, x|
           matrix.merge!("#{x}:#{y}" => element)
         end

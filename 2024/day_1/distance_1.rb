@@ -3,10 +3,10 @@
 $LOAD_PATH << './lib'
 require "input.rb"
 path = "day_1/data/input.txt"
-distances = Input.new(path).to_str_array("\n\n")
+distances = Input.new(path).to_pairs_array("\n")
 
-def max(stashes)
-  stashes
+def lists(distances)
+  distances
     .map { |stash| stash.split("\n").map(&:to_i).sum }
     .max
 end
@@ -22,4 +22,4 @@ def calculate_distance(left_list, right_list)
   -distance
 end
 
-# p top_three(stashes)
+# p calculate_distance(left_list, right_list)
