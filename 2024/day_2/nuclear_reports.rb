@@ -19,6 +19,8 @@ def is_safe?(report)
     # safe as long as the result is increasing or decreasing between 1 and 3
     return false unless (1..3).cover? (level - report[index+1]).abs
   end
+end
 
-  # true
+def safe_reports(reports)
+  reports.select { |r| is_safe?(r) }.count
 end
