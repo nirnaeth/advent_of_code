@@ -24,3 +24,5 @@ end
 def safe_reports(reports)
   reports.select { |r| is_safe?(r) }.count
 end
+
+p safe_reports(reports)
