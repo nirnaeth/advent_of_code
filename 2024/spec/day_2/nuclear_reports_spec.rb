@@ -20,6 +20,12 @@ RSpec.describe "#is_safe?" do
     expect(is_safe?(report)).to be true
   end
 
+  it "returns true if the report's level are all increasing by 1, 2, or 3" do
+    report = [1, 3, 6, 7, 9]
+
+    expect(is_safe?(report)).to be true
+  end
+
   it "returns false if the report's level are not all increasing by 1, 2, or 3" do
     report = [1, 2, 7, 8, 9]
 
