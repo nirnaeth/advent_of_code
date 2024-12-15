@@ -37,4 +37,24 @@ def cards_won(values)
   end
 end
 
-cards_won(values)
+# winnings = cards_won(values)
+# 
+
+def add_copies(wins)
+  ## TODO: might not be able to use array because they move around the fucking index
+  scratchcards = Array.new(wins.count, 1)
+
+  wins.each_with_index do |win, offset|
+    p "win: #{win}"
+    
+    win.times do |counter|
+      p "inserting at index: #{counter + offset +  1}"
+      p "------"
+      scratchcards[counter + offset +  1] += 1
+    end
+  end
+  binding.pry
+  scratchcards
+end
+
+# copies(winnings)
